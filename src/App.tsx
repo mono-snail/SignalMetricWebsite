@@ -1,31 +1,44 @@
 import { useEffect } from "react";
-import {
-  BrowserRouter,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
 import AppFrame from "@/components/AppFrame";
 import HomePage from "@/pages/HomePage";
 import MeasurementsPage from "@/pages/MeasurementsPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import PrivacyPage from "@/pages/PrivacyPage";
 import SupportPage from "@/pages/SupportPage";
+import { Router } from "@/routing/router";
+import {
+  normalizeRoutePath,
+  useLocation,
+} from "@/routing/routerContext";
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <Router>
+      <AppContent />
+    </Router>
+  );
+}
+
+function AppContent() {
+  const location = useLocation();
+  const path = normalizeRoutePath(location.pathname);
+  let page = <NotFoundPage />;
+
+  if (path === "/") {
+    page = <HomePage />;
+  } else if (path === "/measurements/") {
+    page = <MeasurementsPage />;
+  } else if (path === "/support/") {
+    page = <SupportPage />;
+  } else if (path === "/privacy/") {
+    page = <PrivacyPage />;
+  }
+
+  return (
+    <>
       <RouteEffects />
-      <AppFrame>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/measurements/" element={<MeasurementsPage />} />
-          <Route path="/support/" element={<SupportPage />} />
-          <Route path="/privacy/" element={<PrivacyPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
-      </AppFrame>
-    </BrowserRouter>
+      <AppFrame>{page}</AppFrame>
+    </>
   );
 }
 

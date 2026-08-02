@@ -1,7 +1,7 @@
 import { ArrowLeft } from "lucide-react";
-import { Link } from "react-router-dom";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { useCopy } from "@/i18n/store";
+import { Link } from "@/routing/router";
 
 export default function NotFoundPage() {
   const { copy } = useCopy();

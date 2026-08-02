@@ -6,11 +6,11 @@ import {
   Mic,
   ShieldCheck,
 } from "lucide-react";
-import { Link } from "react-router-dom";
 import DeviceShot from "@/components/DeviceShot";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
+import { Link } from "@/routing/router";
 
 const appStoreUrl = import.meta.env.VITE_APP_STORE_URL as string | undefined;
 

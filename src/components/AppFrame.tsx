@@ -1,10 +1,11 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { Activity, ArrowUpRight, Menu, X } from "lucide-react";
-import { Link, NavLink, useLocation } from "react-router-dom";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { copy as allCopy } from "@/i18n/copy";
 import { useCopy, useLocaleStore } from "@/i18n/store";
 import { locales, type Locale } from "@/i18n/types";
+import { Link, NavLink } from "@/routing/router";
+import { useLocation } from "@/routing/routerContext";
 
 interface AppFrameProps {
   children: ReactNode;

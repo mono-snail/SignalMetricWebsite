@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import { useCopy } from "@/i18n/store";
+import { useLocation } from "@/routing/routerContext";
 
 type PageKind = "home" | "measurements" | "support" | "privacy";
 
