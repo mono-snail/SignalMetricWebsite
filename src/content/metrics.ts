@@ -1,0 +1,798 @@
+import type { Locale } from "@/i18n/types";
+
+export type MetricGroup =
+  | "level"
+  | "loudness"
+  | "dynamics"
+  | "spectrum"
+  | "musical"
+  | "integrity";
+
+type LocalizedText = Record<Locale, string>;
+
+export interface MetricDefinition {
+  id: string;
+  group: MetricGroup;
+  label: string;
+  unit?: string;
+  window: LocalizedText;
+  reading: LocalizedText;
+  limit: LocalizedText;
+}
+
+const text = (
+  en: string,
+  zhCN: string,
+  ja: string,
+  ko: string,
+): LocalizedText => ({
+  en,
+  "zh-CN": zhCN,
+  ja,
+  ko,
+});
+
+export const metricGroupNames: Record<MetricGroup, LocalizedText> = {
+  level: text("Level & Peak", "电平与峰值", "レベルとピーク", "레벨과 피크"),
+  loudness: text("Loudness", "响度", "ラウドネス", "라우드니스"),
+  dynamics: text("Dynamics", "动态", "ダイナミクス", "다이내믹"),
+  spectrum: text("Spectrum", "频谱", "スペクトル", "스펙트럼"),
+  musical: text("Musical", "音乐性", "音楽情報", "음악 정보"),
+  integrity: text("Signal Integrity", "信号完整性", "信号品質", "신호 무결성"),
+};
+
+export const metrics: MetricDefinition[] = [
+  {
+    id: "rms",
+    group: "level",
+    label: "RMS",
+    unit: "dBFS",
+    window: text(
+      "Current analysis window; energy-averaged amplitude.",
+      "当前分析窗口；对振幅能量取平均。",
+      "現在の解析窓。振幅エネルギーの平均。",
+      "현재 분석 창의 진폭 에너지 평균.",
+    ),
+    reading: text(
+      "Closer to 0 means a stronger digital input. It is usually steadier than a peak reading.",
+      "越接近 0，数字输入越强；通常比峰值读数更稳定。",
+      "0に近いほど強いデジタル入力。ピークより安定した値です。",
+      "0에 가까울수록 디지털 입력이 강하며 피크보다 안정적입니다.",
+    ),
+    limit: text(
+      "Not acoustic loudness or calibrated sound pressure.",
+      "不是声学响度，也不是校准声压。",
+      "音響ラウドネスや校正音圧ではありません。",
+      "음향 라우드니스나 보정 음압이 아닙니다.",
+    ),
+  },
+  {
+    id: "sample-peak",
+    group: "level",
+    label: "Sample Peak",
+    unit: "dBFS",
+    window: text(
+      "Highest stored sample in the current analysis window.",
+      "当前分析窗口中的最高采样值。",
+      "現在の解析窓にある最大サンプル値。",
+      "현재 분석 창에서 가장 높은 샘플 값.",
+    ),
+    reading: text(
+      "Shows how close a captured sample came to digital full scale.",
+      "显示已采样信号距离数字满量程有多近。",
+      "取得サンプルがデジタル上限にどれだけ近いかを示します。",
+      "기록된 샘플이 디지털 상한에 얼마나 가까운지 보여 줍니다.",
+    ),
+    limit: text(
+      "Can miss an inter-sample peak reconstructed between samples.",
+      "可能漏掉采样点之间重建出的采样间峰值。",
+      "サンプル間に再構成されるピークは見逃す場合があります。",
+      "샘플 사이에서 재구성되는 피크를 놓칠 수 있습니다.",
+    ),
+  },
+  {
+    id: "peak-hold",
+    group: "level",
+    label: "Peak Hold",
+    unit: "dBFS",
+    window: text(
+      "Highest recent sample peak with controlled visual decay.",
+      "近期最高采样峰值，并带有受控视觉衰减。",
+      "直近の最大サンプルピークを保持し、一定速度で減衰。",
+      "최근 최고 샘플 피크를 유지한 뒤 일정하게 감쇠.",
+    ),
+    reading: text(
+      "Useful for catching a short transient that the current value has already left behind.",
+      "用于捕捉当前读数已经错过的短瞬态。",
+      "現在値では消えた短いトランジェントを確認できます。",
+      "현재 값에서 이미 사라진 짧은 트랜지언트를 확인합니다.",
+    ),
+    limit: text(
+      "A display memory, not a separate measurement standard.",
+      "它是显示记忆，不是独立测量标准。",
+      "表示上の記憶であり、独立した測定規格ではありません。",
+      "표시 메모리이며 별도의 측정 표준이 아닙니다.",
+    ),
+  },
+  {
+    id: "true-peak",
+    group: "level",
+    label: "True Peak*",
+    unit: "dBTP",
+    window: text(
+      "4× oversampled inter-sample estimate.",
+      "通过 4× 过采样得到的采样间峰值估算。",
+      "4×オーバーサンプリングによるサンプル間ピーク推定。",
+      "4× 오버샘플링을 이용한 샘플 사이 피크 추정.",
+    ),
+    reading: text(
+      "Reveals reconstructed peaks that may exceed the highest stored sample.",
+      "揭示可能高于最高采样值的重建峰值。",
+      "最大サンプルを超える可能性がある再構成ピークを示します。",
+      "최고 샘플보다 높을 수 있는 재구성 피크를 보여 줍니다.",
+    ),
+    limit: text(
+      "Marked as an estimate; not a certified delivery-compliance result.",
+      "明确标记为估算，不是认证交付合规结果。",
+      "推定値です。認証済み納品適合値ではありません。",
+      "추정값이며 인증된 납품 준수 결과가 아닙니다.",
+    ),
+  },
+  {
+    id: "headroom",
+    group: "level",
+    label: "Headroom",
+    unit: "dB",
+    window: text(
+      "Distance from estimated True Peak to 0 dBFS.",
+      "True Peak 估算值到 0 dBFS 的距离。",
+      "推定True Peakから0 dBFSまでの距離。",
+      "추정 True Peak에서 0 dBFS까지의 거리.",
+    ),
+    reading: text(
+      "A larger positive value means more digital margin before full scale.",
+      "正值越大，距离数字满量程的余量越多。",
+      "大きい正値ほどデジタル上限までの余裕があります。",
+      "양수가 클수록 디지털 상한까지 여유가 많습니다.",
+    ),
+    limit: text(
+      "Does not describe analogue preamp or acoustic headroom.",
+      "不描述模拟前级或声学余量。",
+      "アナログプリアンプや音響的余裕は示しません。",
+      "아날로그 프리앰프나 음향 헤드룸을 설명하지 않습니다.",
+    ),
+  },
+  {
+    id: "momentary",
+    group: "loudness",
+    label: "Momentary",
+    unit: "LUFS",
+    window: text(
+      "BS.1770-style K-weighted mono window of 400 ms.",
+      "BS.1770 风格 K 加权单声道，400 ms 窗口。",
+      "BS.1770方式Kウェイト・モノ、400 ms窓。",
+      "BS.1770 방식 K 가중 모노 400 ms 창.",
+    ),
+    reading: text(
+      "Fast perceptual loudness evidence for phrases and short events.",
+      "用于短语和短事件的快速感知响度证据。",
+      "フレーズや短いイベントの素早い知覚ラウドネス。",
+      "구절과 짧은 이벤트의 빠른 지각 라우드니스.",
+    ),
+    limit: text(
+      "Too reactive to represent an entire programme.",
+      "反应太快，不能代表整个节目。",
+      "番組全体を代表するには反応が速すぎます。",
+      "전체 프로그램을 대표하기에는 반응이 너무 빠릅니다.",
+    ),
+  },
+  {
+    id: "short-term",
+    group: "loudness",
+    label: "Short-Term",
+    unit: "LUFS",
+    window: text(
+      "BS.1770-style K-weighted mono window of 3 seconds.",
+      "BS.1770 风格 K 加权单声道，3 秒窗口。",
+      "BS.1770方式Kウェイト・モノ、3秒窓。",
+      "BS.1770 방식 K 가중 모노 3초 창.",
+    ),
+    reading: text(
+      "Describes the current passage with less fluctuation than Momentary.",
+      "比 Momentary 更稳定地描述当前段落。",
+      "Momentaryより変動を抑えて現在の区間を示します。",
+      "Momentary보다 변동을 줄여 현재 구간을 설명합니다.",
+    ),
+    limit: text(
+      "Still local in time; it is not the session average.",
+      "仍然只描述局部时间，不是会话平均。",
+      "時間的には局所値で、セッション平均ではありません。",
+      "여전히 국소 시간 값이며 세션 평균이 아닙니다.",
+    ),
+  },
+  {
+    id: "integrated",
+    group: "loudness",
+    label: "Integrated",
+    unit: "LUFS",
+    window: text(
+      "K-weighted, absolute- and relative-gated session accumulation.",
+      "K 加权，并使用绝对与相对门限累计整个会话。",
+      "Kウェイト、絶対・相対ゲート付きセッション累積。",
+      "K 가중, 절대 및 상대 게이트를 적용한 세션 누적.",
+    ),
+    reading: text(
+      "The best single loudness summary for the measured session.",
+      "当前测量会话最具代表性的单一响度摘要。",
+      "測定セッション全体を表す最も有用な単一値です。",
+      "측정 세션을 요약하는 가장 유용한 단일 라우드니스 값입니다.",
+    ),
+    limit: text(
+      "Needs time to settle and does not certify a delivery master.",
+      "需要时间稳定，也不能认证交付母带。",
+      "安定には時間が必要で、納品マスターを認証しません。",
+      "안정화에 시간이 필요하며 납품 마스터를 인증하지 않습니다.",
+    ),
+  },
+  {
+    id: "lra",
+    group: "loudness",
+    label: "LRA",
+    unit: "LU",
+    window: text(
+      "Distribution of gated short-term loudness across the session.",
+      "会话中经过门限的短时响度分布。",
+      "セッション内のゲート済み短期ラウドネス分布。",
+      "세션 내 게이트된 단기 라우드니스 분포.",
+    ),
+    reading: text(
+      "Higher values indicate greater programme loudness variation.",
+      "值越高，节目响度变化通常越大。",
+      "高い値ほど番組のラウドネス変動が大きい傾向です。",
+      "값이 높을수록 프로그램 라우드니스 변화가 큽니다.",
+    ),
+    limit: text(
+      "Shown as provisional before 60 seconds of useful material.",
+      "有效素材不足 60 秒时会标记为暂定值。",
+      "有効素材が60秒未満では暫定値として表示します。",
+      "유효한 자료가 60초 미만이면 잠정값으로 표시합니다.",
+    ),
+  },
+  {
+    id: "target-delta",
+    group: "loudness",
+    label: "Target Δ",
+    unit: "LU",
+    window: text(
+      "Integrated LUFS minus the selected visual reference.",
+      "综合 LUFS 减去所选视觉参考目标。",
+      "Integrated LUFSから選択した表示基準を引いた値。",
+      "Integrated LUFS에서 선택한 시각 기준을 뺀 값.",
+    ),
+    reading: text(
+      "Positive is above the reference; negative is below it.",
+      "正值表示高于参考，负值表示低于参考。",
+      "正値は基準より上、負値は下です。",
+      "양수는 기준보다 높고 음수는 낮습니다.",
+    ),
+    limit: text(
+      "The Streaming, EBU and ATSC targets are guidance, not certification.",
+      "Streaming、EBU 和 ATSC 目标只是参考，不是认证。",
+      "Streaming、EBU、ATSC目標はガイドであり認証ではありません。",
+      "Streaming, EBU, ATSC 목표는 안내일 뿐 인증이 아닙니다.",
+    ),
+  },
+  {
+    id: "crest",
+    group: "dynamics",
+    label: "Crest Factor",
+    unit: "dB",
+    window: text(
+      "Sample Peak minus RMS in the same analysis window.",
+      "同一分析窗口中的 Sample Peak 减 RMS。",
+      "同じ解析窓のSample PeakからRMSを引いた値。",
+      "같은 분석 창의 Sample Peak에서 RMS를 뺀 값.",
+    ),
+    reading: text(
+      "Larger values indicate sharper transients relative to average energy.",
+      "值越大，瞬态相对平均能量通常越突出。",
+      "大きい値ほど平均に対して鋭いトランジェントがあります。",
+      "값이 클수록 평균 대비 날카로운 트랜지언트가 있습니다.",
+    ),
+    limit: text(
+      "Sensitive to the current window and not the same as programme dynamics.",
+      "对当前窗口敏感，不等同于节目整体动态。",
+      "現在窓に依存し、番組全体のダイナミクスとは異なります。",
+      "현재 창에 민감하며 전체 프로그램 다이내믹과 다릅니다.",
+    ),
+  },
+  {
+    id: "psr",
+    group: "dynamics",
+    label: "PSR",
+    unit: "dB",
+    window: text(
+      "Estimated True Peak minus Short-Term loudness.",
+      "True Peak 估算减去 Short-Term 响度。",
+      "推定True PeakからShort-Termラウドネスを引いた値。",
+      "추정 True Peak에서 Short-Term 라우드니스를 뺀 값.",
+    ),
+    reading: text(
+      "Describes short-passage peak-to-loudness contrast.",
+      "描述短段落中峰值与响度的对比。",
+      "短い区間のピーク対ラウドネス差を示します。",
+      "짧은 구간의 피크 대비 라우드니스 차이를 설명합니다.",
+    ),
+    limit: text(
+      "Depends on a stable Short-Term loudness reading.",
+      "依赖稳定的 Short-Term 响度读数。",
+      "安定したShort-Term値が必要です。",
+      "안정적인 Short-Term 값이 필요합니다.",
+    ),
+  },
+  {
+    id: "plr",
+    group: "dynamics",
+    label: "PLR",
+    unit: "dB",
+    window: text(
+      "Estimated True Peak minus Integrated loudness.",
+      "True Peak 估算减去 Integrated 响度。",
+      "推定True PeakからIntegratedラウドネスを引いた値。",
+      "추정 True Peak에서 Integrated 라우드니스를 뺀 값.",
+    ),
+    reading: text(
+      "Summarizes session peak-to-loudness contrast.",
+      "总结会话整体峰值与响度的对比。",
+      "セッション全体のピーク対ラウドネス差です。",
+      "세션 전체의 피크 대비 라우드니스 차이를 요약합니다.",
+    ),
+    limit: text(
+      "Unstable early in a session while Integrated loudness is warming up.",
+      "会话早期 Integrated 尚未稳定时，PLR 也不稳定。",
+      "Integratedが安定する前のセッション初期は不安定です。",
+      "Integrated가 안정되기 전 세션 초기에 불안정합니다.",
+    ),
+  },
+  {
+    id: "noise-floor",
+    group: "dynamics",
+    label: "Floor P10",
+    unit: "dBFS",
+    window: text(
+      "10th percentile of RMS levels in the rolling 30-second history.",
+      "滚动 30 秒 RMS 历史的第 10 百分位。",
+      "30秒ローリングRMS履歴の10パーセンタイル。",
+      "30초 롤링 RMS 기록의 10번째 백분위수.",
+    ),
+    reading: text(
+      "A robust low-level baseline that ignores a few isolated silent frames.",
+      "比单次静音帧更稳健的低电平基线。",
+      "孤立した無音フレームに左右されにくい低レベル基準です。",
+      "몇 개의 무음 프레임에 덜 민감한 저레벨 기준입니다.",
+    ),
+    limit: text(
+      "An input-floor estimate, not a calibrated room-noise SPL.",
+      "是输入噪声底估算，不是校准房间噪声 SPL。",
+      "入力フロアの推定で、校正された室内騒音SPLではありません。",
+      "입력 노이즈 플로어 추정이며 보정된 실내 소음 SPL이 아닙니다.",
+    ),
+  },
+  {
+    id: "snr",
+    group: "dynamics",
+    label: "SNR EST",
+    unit: "dB",
+    window: text(
+      "Current RMS relative to the rolling Floor P10 estimate.",
+      "当前 RMS 相对于滚动 Floor P10 的差值。",
+      "現在RMSとローリングFloor P10推定の差。",
+      "현재 RMS와 롤링 Floor P10 추정의 차이.",
+    ),
+    reading: text(
+      "Higher values suggest the current source stands farther above its recent baseline.",
+      "值越高，当前信号通常越高于近期基线。",
+      "高い値ほど現在信号が最近の基準より十分上にあります。",
+      "값이 높을수록 현재 신호가 최근 기준보다 더 높습니다.",
+    ),
+    limit: text(
+      "Not a laboratory SNR measurement and changes with the recent source.",
+      "不是实验室 SNR，且会随近期输入变化。",
+      "実験室SNRではなく、最近の入力内容で変化します。",
+      "실험실 SNR이 아니며 최근 소스에 따라 달라집니다.",
+    ),
+  },
+  {
+    id: "dominant",
+    group: "spectrum",
+    label: "Dominant",
+    unit: "Hz",
+    window: text(
+      "Strongest stable component in the current 2,048-point FFT.",
+      "当前 2,048 点 FFT 中最强的稳定分量。",
+      "現在の2,048ポイントFFTで最も強い安定成分。",
+      "현재 2,048포인트 FFT에서 가장 강한 안정 성분.",
+    ),
+    reading: text(
+      "Often points to a fundamental tone, resonance or strongest partial.",
+      "常对应基频、共振或最强分音。",
+      "基音、共鳴、最強の部分音を示すことがあります。",
+      "기본음, 공진 또는 가장 강한 부분음을 가리킬 수 있습니다.",
+    ),
+    limit: text(
+      "Complex audio may not have one meaningful dominant frequency.",
+      "复杂音频不一定存在有意义的单一主频。",
+      "複雑な音には意味のある単一主周波数がない場合があります。",
+      "복잡한 오디오에는 의미 있는 단일 주 주파수가 없을 수 있습니다.",
+    ),
+  },
+  {
+    id: "centroid",
+    group: "spectrum",
+    label: "Centroid",
+    unit: "Hz",
+    window: text(
+      "Power-weighted center of the current spectrum.",
+      "当前频谱的功率加权中心。",
+      "現在スペクトルのパワー加重中心。",
+      "현재 스펙트럼의 파워 가중 중심.",
+    ),
+    reading: text(
+      "Higher values generally correlate with a brighter spectral balance.",
+      "值越高，频谱平衡通常越明亮。",
+      "高い値ほど一般に明るいスペクトル傾向です。",
+      "값이 높을수록 일반적으로 더 밝은 스펙트럼입니다.",
+    ),
+    limit: text(
+      "A shape descriptor, not the pitch or strongest frequency.",
+      "它描述频谱形状，不是音高或最强频率。",
+      "形状指標で、音高や最大周波数ではありません。",
+      "형상 지표이며 음정이나 가장 강한 주파수가 아닙니다.",
+    ),
+  },
+  {
+    id: "bandwidth",
+    group: "spectrum",
+    label: "Bandwidth",
+    unit: "Hz",
+    window: text(
+      "Power-weighted spread around the spectral centroid.",
+      "围绕频谱质心的功率加权扩散。",
+      "スペクトル重心周辺のパワー加重広がり。",
+      "스펙트럼 중심 주변의 파워 가중 분포.",
+    ),
+    reading: text(
+      "A wider value means energy is distributed across a broader frequency range.",
+      "值越宽，能量分布的频率范围越广。",
+      "広い値ほどエネルギーが広い周波数範囲に分布します。",
+      "값이 넓을수록 에너지가 더 넓은 주파수 범위에 분포합니다.",
+    ),
+    limit: text(
+      "Does not identify where separate spectral clusters occur.",
+      "不能指出多个独立频谱簇具体位于何处。",
+      "複数の独立した帯域がどこにあるかは示しません。",
+      "분리된 여러 스펙트럼 군집의 위치를 알려 주지는 않습니다.",
+    ),
+  },
+  {
+    id: "r85",
+    group: "spectrum",
+    label: "R85",
+    unit: "Hz",
+    window: text(
+      "Frequency below which 85% of current spectral power falls.",
+      "当前 85% 频谱功率所处的上限频率。",
+      "現在スペクトルパワーの85%が下に入る周波数。",
+      "현재 스펙트럼 파워의 85%가 아래에 있는 주파수.",
+    ),
+    reading: text(
+      "Compactly shows how far meaningful energy extends into the high range.",
+      "紧凑表示有效能量向高频延伸到哪里。",
+      "意味のあるエネルギーが高域へどこまで伸びるかを示します。",
+      "의미 있는 에너지가 고역으로 어디까지 확장되는지 보여 줍니다.",
+    ),
+    limit: text(
+      "A percentile boundary, not a hard low-pass cutoff.",
+      "它是百分位边界，不是硬性低通截止频率。",
+      "パーセンタイル境界で、急峻なローパス点ではありません。",
+      "백분위 경계이며 강한 로우패스 컷오프가 아닙니다.",
+    ),
+  },
+  {
+    id: "flatness",
+    group: "spectrum",
+    label: "Flatness",
+    unit: "%",
+    window: text(
+      "Geometric-to-arithmetic mean ratio of spectral power.",
+      "频谱功率几何平均与算术平均之比。",
+      "スペクトルパワーの幾何平均と算術平均の比。",
+      "스펙트럼 파워의 기하 평균과 산술 평균 비율.",
+    ),
+    reading: text(
+      "Low values are more tonal; high values are more noise-like.",
+      "低值更接近音调，高值更接近噪声。",
+      "低いほど音程的、高いほどノイズ的です。",
+      "낮을수록 음조적이고 높을수록 노이즈에 가깝습니다.",
+    ),
+    limit: text(
+      "Depends on the analyzed band and does not judge sound quality.",
+      "依赖分析频段，也不评价声音好坏。",
+      "解析帯域に依存し、音質の良し悪しは判断しません。",
+      "분석 대역에 따라 달라지며 음질을 평가하지 않습니다.",
+    ),
+  },
+  {
+    id: "fft-bands",
+    group: "spectrum",
+    label: "64-band FFT",
+    unit: "dBFS",
+    window: text(
+      "2,048-point Hann FFT mapped to 64 logarithmic bands.",
+      "2,048 点 Hann FFT 映射到 64 个对数频带。",
+      "2,048ポイントHann FFTを64対数帯域へマッピング。",
+      "2,048포인트 Hann FFT를 64개 로그 밴드로 매핑.",
+    ),
+    reading: text(
+      "Shows relative digital energy from roughly 45 Hz to 16 kHz.",
+      "显示约 45 Hz 到 16 kHz 的相对数字能量。",
+      "約45 Hz〜16 kHzの相対デジタルエネルギーです。",
+      "약 45 Hz~16 kHz의 상대 디지털 에너지를 표시합니다.",
+    ),
+    limit: text(
+      "Band values are not calibrated acoustic pressure or a laboratory RTA.",
+      "频带值不是校准声压，也不是实验室 RTA。",
+      "帯域値は校正音圧でも実験室RTAでもありません。",
+      "밴드 값은 보정 음압이나 실험실 RTA가 아닙니다.",
+    ),
+  },
+  {
+    id: "components",
+    group: "spectrum",
+    label: "FFT Components",
+    unit: "Hz / dBFS",
+    window: text(
+      "Up to six strongest local FFT peaks with interpolation.",
+      "最多六个最强局部 FFT 峰值，并进行插值。",
+      "補間した最大6つの局所FFTピーク。",
+      "보간된 최대 6개의 강한 국소 FFT 피크.",
+    ),
+    reading: text(
+      "Separates prominent partials by frequency, level, period, note and harmonic fit.",
+      "按频率、电平、周期、音名和谐波关系拆分主要分音。",
+      "主要部分音を周波数、レベル、周期、音名、倍音関係で分離。",
+      "주요 부분음을 주파수, 레벨, 주기, 음 이름과 배음 관계로 분리합니다.",
+    ),
+    limit: text(
+      "A selected peak view, not a complete inverse-FFT reconstruction.",
+      "只是筛选后的峰值视图，不是完整逆 FFT 重建。",
+      "選択ピーク表示で、完全な逆FFT再構成ではありません。",
+      "선택된 피크 보기이며 완전한 역 FFT 재구성이 아닙니다.",
+    ),
+  },
+  {
+    id: "nearest-note",
+    group: "musical",
+    label: "Nearest Note",
+    window: text(
+      "Dominant stable frequency mapped to equal-tempered A4 = 440 Hz.",
+      "将稳定主频映射到 A4 = 440 Hz 的十二平均律。",
+      "安定主周波数をA4 = 440 Hzの平均律へ変換。",
+      "안정된 주 주파수를 A4 = 440 Hz 평균율에 매핑.",
+    ),
+    reading: text(
+      "Provides quick musical context such as A4 or F#3.",
+      "提供 A4、F#3 等快速音乐语境。",
+      "A4やF#3など素早い音楽的文脈を示します。",
+      "A4, F#3 같은 빠른 음악적 맥락을 제공합니다.",
+    ),
+    limit: text(
+      "Approximate context, not a precision instrument tuner.",
+      "只是近似语境，不是精密调音器。",
+      "近似的な文脈で、精密チューナーではありません。",
+      "근사 맥락이며 정밀 악기 튜너가 아닙니다.",
+    ),
+  },
+  {
+    id: "cents",
+    group: "musical",
+    label: "Cents Offset",
+    unit: "cent",
+    window: text(
+      "Pitch distance from the nearest equal-tempered note.",
+      "相对最近十二平均律音名的音高距离。",
+      "最も近い平均律音からの音程差。",
+      "가장 가까운 평균율 음에서 떨어진 음정 거리.",
+    ),
+    reading: text(
+      "Positive is sharp and negative is flat relative to that note.",
+      "正值偏高，负值偏低。",
+      "正値は高め、負値は低めです。",
+      "양수는 높고 음수는 낮습니다.",
+    ),
+    limit: text(
+      "Only meaningful when the dominant frequency is stable and tonal.",
+      "只有主频稳定且具有音调时才有意义。",
+      "主周波数が安定した音程成分である時だけ有効です。",
+      "주 주파수가 안정적이고 음조적일 때만 의미가 있습니다.",
+    ),
+  },
+  {
+    id: "bpm",
+    group: "musical",
+    label: "Estimated BPM",
+    unit: "BPM",
+    window: text(
+      "Recent spectral-flux onset pattern within 48–200 BPM.",
+      "近期频谱通量起音模式，范围 48–200 BPM。",
+      "最近のスペクトルフラックスのオンセット、48〜200 BPM。",
+      "최근 스펙트럼 플럭스 온셋 패턴, 48~200 BPM.",
+    ),
+    reading: text(
+      "Shows tempo only after repeated transient evidence becomes consistent.",
+      "只有重复瞬态证据足够一致时才显示速度。",
+      "反復するトランジェントの根拠が揃った時だけ表示します。",
+      "반복 트랜지언트 근거가 일관될 때만 템포를 표시합니다.",
+    ),
+    limit: text(
+      "Speech, sustained tones and free-time music may remain Listening.",
+      "语音、持续音和自由节奏音乐可能始终显示 Listening。",
+      "会話、持続音、自由テンポ音楽はListeningのままの場合があります。",
+      "말, 지속음, 자유 템포 음악은 Listening으로 남을 수 있습니다.",
+    ),
+  },
+  {
+    id: "confidence",
+    group: "musical",
+    label: "Tempo Confidence",
+    unit: "%",
+    window: text(
+      "Consistency score for the recent beat estimate.",
+      "近期节拍估算的一致性评分。",
+      "最近のビート推定の一貫性スコア。",
+      "최근 비트 추정의 일관성 점수.",
+    ),
+    reading: text(
+      "Higher values mean the observed onset pattern supports the shown BPM more strongly.",
+      "值越高，起音模式对所显示 BPM 的支持越强。",
+      "高いほど観測したオンセットが表示BPMを強く支持します。",
+      "값이 높을수록 관찰된 온셋 패턴이 표시 BPM을 더 강하게 지지합니다.",
+    ),
+    limit: text(
+      "Confidence is algorithmic evidence, not musical ground truth.",
+      "置信度只是算法证据，不是音乐事实。",
+      "アルゴリズム上の根拠で、音楽的な絶対正解ではありません。",
+      "알고리즘 근거이며 음악적 절대 정답이 아닙니다.",
+    ),
+  },
+  {
+    id: "dc",
+    group: "integrity",
+    label: "DC Offset EST",
+    unit: "%",
+    window: text(
+      "Mean sample value in the current time-domain window.",
+      "当前时域窗口的采样平均值。",
+      "現在の時間領域窓の平均サンプル値。",
+      "현재 시간 영역 창의 평균 샘플 값.",
+    ),
+    reading: text(
+      "Values near zero indicate the waveform is centered around digital zero.",
+      "接近 0 表示波形围绕数字零点居中。",
+      "0に近いほど波形がデジタルゼロを中心にしています。",
+      "0에 가까울수록 파형이 디지털 0을 중심으로 합니다.",
+    ),
+    limit: text(
+      "A short-window estimate; route processing can influence it.",
+      "它是短窗口估算，输入路由处理可能影响结果。",
+      "短窓推定で、入力経路の処理に影響されます。",
+      "짧은 창 추정이며 입력 경로 처리의 영향을 받을 수 있습니다.",
+    ),
+  },
+  {
+    id: "zcr",
+    group: "integrity",
+    label: "ZCR",
+    unit: "%",
+    window: text(
+      "Share of adjacent sample pairs that cross digital zero.",
+      "相邻采样对跨越数字零点的比例。",
+      "隣接サンプルがデジタルゼロを跨ぐ割合。",
+      "인접 샘플 쌍이 디지털 0을 교차하는 비율.",
+    ),
+    reading: text(
+      "Higher rates often accompany noisier or higher-frequency material.",
+      "更高的过零率常见于噪声更多或频率更高的素材。",
+      "高い値はノイズ的・高周波成分の多い素材で増える傾向です。",
+      "높은 비율은 노이즈나 고주파 성분이 많은 자료에서 흔합니다.",
+    ),
+    limit: text(
+      "Cannot identify content or quality by itself.",
+      "单独使用无法判断内容或质量。",
+      "単独では内容や品質を判断できません。",
+      "이 값만으로 내용이나 품질을 판단할 수 없습니다.",
+    ),
+  },
+  {
+    id: "clip-events",
+    group: "integrity",
+    label: "Clip Events",
+    window: text(
+      "Session count of entries into the digital clipping region.",
+      "会话中进入数字削波区域的次数。",
+      "セッション中にデジタルクリップ領域へ入った回数。",
+      "세션 중 디지털 클리핑 영역에 진입한 횟수.",
+    ),
+    reading: text(
+      "A rising count means the input repeatedly reached or approached full scale.",
+      "计数上升说明输入反复达到或接近满量程。",
+      "増加は入力が繰り返し上限付近へ到達したことを示します。",
+      "숫자가 늘면 입력이 반복해서 풀스케일에 도달했음을 뜻합니다.",
+    ),
+    limit: text(
+      "Does not prove audible distortion after route processing.",
+      "不能证明路由处理后一定产生可听失真。",
+      "経路処理後の可聴歪みを断定するものではありません。",
+      "경로 처리 후 가청 왜곡을 증명하지는 않습니다.",
+    ),
+  },
+  {
+    id: "channels",
+    group: "integrity",
+    label: "Channel Count",
+    unit: "CH",
+    window: text(
+      "Channel count reported by the active source format.",
+      "当前输入格式报告的声道数。",
+      "アクティブ入力フォーマットのチャンネル数。",
+      "활성 소스 형식이 보고한 채널 수.",
+    ),
+    reading: text(
+      "Confirms whether the source is mono or multichannel before downmix analysis.",
+      "确认输入在混合分析前是单声道还是多声道。",
+      "解析用ダウンミックス前のモノ／マルチチャンネルを確認します。",
+      "분석용 다운믹스 전 모노 또는 다채널 여부를 확인합니다.",
+    ),
+    limit: text(
+      "Multichannel analysis uses equal-gain averaging and can cancel opposite polarity.",
+      "多声道分析采用等增益平均，反相声道可能相消。",
+      "マルチチャンネルは等ゲイン平均し、逆相成分は相殺され得ます。",
+      "다채널은 동일 게인 평균을 사용하며 반대 극성은 상쇄될 수 있습니다.",
+    ),
+  },
+  {
+    id: "sample-rate",
+    group: "integrity",
+    label: "Sample Rate",
+    unit: "kHz",
+    window: text(
+      "Rate reported by the current microphone route or audio file.",
+      "当前麦克风路由或音频文件报告的采样率。",
+      "現在のマイク経路または音声ファイルのサンプルレート。",
+      "현재 마이크 경로 또는 오디오 파일의 샘플 레이트.",
+    ),
+    reading: text(
+      "Shows how many samples per second feed the analysis.",
+      "显示每秒有多少采样进入分析。",
+      "1秒あたり何サンプルが解析へ入るかを示します。",
+      "초당 몇 개의 샘플이 분석에 들어가는지 보여 줍니다.",
+    ),
+    limit: text(
+      "A higher rate alone does not guarantee better source quality.",
+      "更高采样率本身不保证输入质量更好。",
+      "高いレートだけで音源品質が良いとは限りません。",
+      "높은 레이트만으로 소스 품질이 더 좋다고 보장할 수 없습니다.",
+    ),
+  },
+];
+
+export const localizeMetric = (
+  metric: MetricDefinition,
+  locale: Locale,
+) => ({
+  ...metric,
+  groupName: metricGroupNames[metric.group][locale],
+  window: metric.window[locale],
+  reading: metric.reading[locale],
+  limit: metric.limit[locale],
+});

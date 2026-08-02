@@ -1,0 +1,16 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#070A0F"/>
+  <g opacity=".2" stroke="#51DFD0">
+    <path d="M0 90H1200M0 180H1200M0 270H1200M0 360H1200M0 450H1200M0 540H1200"/>
+    <path d="M120 0V630M240 0V630M360 0V630M480 0V630M600 0V630M720 0V630M840 0V630M960 0V630M1080 0V630"/>
+  </g>
+  <circle cx="920" cy="315" r="210" stroke="#51DFD0" stroke-opacity=".18" stroke-width="2"/>
+  <circle cx="920" cy="315" r="145" stroke="#51DFD0" stroke-opacity=".1" stroke-width="2"/>
+  <path d="M662 326C713 195 757 455 814 307C860 190 887 188 925 351C962 503 1019 210 1082 322" stroke="#51DFD0" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="925" cy="351" r="13" fill="#FFB24A"/>
+  <text x="82" y="105" fill="#51DFD0" font-family="monospace" font-size="24" font-weight="700" letter-spacing="6">SIGNAL / METRIC</text>
+  <text x="76" y="298" fill="#F4F7F8" font-family="Avenir Next, sans-serif" font-size="94" font-weight="700" letter-spacing="-6">Audio,</text>
+  <text x="76" y="390" fill="#F4F7F8" font-family="Avenir Next, sans-serif" font-size="94" font-weight="700" letter-spacing="-6">measured.</text>
+  <text x="82" y="485" fill="#98A5B2" font-family="Avenir Next, sans-serif" font-size="26">Professional audio analysis for iPhone.</text>
+  <text x="82" y="545" fill="#FFB24A" font-family="monospace" font-size="18" letter-spacing="2">LUFS · TRUE PEAK · FFT · DYNAMICS · SCOPE</text>
+</svg>
