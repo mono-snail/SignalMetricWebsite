@@ -16,7 +16,7 @@ Cloudflare Pages project: signalmetric-site
 Canonical domain: https://signalmetric.monoware.app/
 Pages Functions: none
 Resource bindings: none
-SPA fallback: Cloudflare Pages native fallback (no `404.html` or `_redirects`)
+Route handling: prerendered HTML for public routes plus a static `404.html`
 ```
 
 ## Production Variables
@@ -38,5 +38,7 @@ branch `main`, build command `npm run build`, and output directory `dist`.
 Associate `signalmetric.monoware.app` only after the first `*.pages.dev`
 production deployment succeeds.
 
-The build copies `public/_redirects` into `dist/_redirects` so direct requests
-to `/measurements/`, `/support/`, and `/privacy/` use the SPA entry point.
+The build prerenders `/measurements/`, `/support/`, and `/privacy/` into
+route-specific HTML files with unique metadata and structured data. The static
+`404.html` prevents unknown URLs from being served as soft-404 copies of the
+home page.

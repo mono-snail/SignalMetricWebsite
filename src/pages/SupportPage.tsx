@@ -45,18 +45,6 @@ export default function SupportPage() {
           <FeedbackForm />
         </div>
       </section>
-
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "FAQPage",
-          mainEntity: copy.support.faqs.map((faq) => ({
-            "@type": "Question",
-            name: faq.question,
-            acceptedAnswer: { "@type": "Answer", text: faq.answer },
-          })),
-        })}
-      </script>
     </>
   );
 }

@@ -1,11 +1,13 @@
 import { ArrowLeft } from "lucide-react";
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
 import { Link } from "@/routing/router";
 
 export default function NotFoundPage() {
   const { copy } = useCopy();
   const localizedPath = useLocalizedPath();
+  usePageMetadata("notFound");
 
   return (
     <section className="not-found section-shell">

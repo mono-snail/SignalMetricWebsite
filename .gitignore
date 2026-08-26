@@ -1,5 +1,6 @@
 node_modules/
 dist/
+.tsconfig.app.tsbuildinfo
 /images/
 .wrangler/
 .DS_Store

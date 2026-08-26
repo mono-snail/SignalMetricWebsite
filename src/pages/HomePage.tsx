@@ -236,18 +236,6 @@ export default function HomePage() {
           </Link>
         </div>
       </section>
-
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "SoftwareApplication",
-          name: "SignalMetric",
-          applicationCategory: "MusicApplication",
-          operatingSystem: "iOS 17 or later",
-          description: copy.meta.homeDescription,
-          offers: { "@type": "Offer", price: "4.99", priceCurrency: "USD" },
-        })}
-      </script>
     </>
   );
 }
