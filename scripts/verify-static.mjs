@@ -2,6 +2,14 @@ import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import { parse } from "parse5";
 
+const lock = JSON.parse(await readFile("package-lock.json", "utf8"));
+for (const dependency of Object.values(lock.packages)) {
+  if (dependency.resolved) {
+    assert.equal(new URL(dependency.resolved).hostname, "registry.npmjs.org",
+      "Dependencies must be downloadable by the public deployment environment");
+  }
+}
+
 const attr = (node, key) => node.attrs?.find((item) => item.name === key)?.value;
 function all(node, predicate) {
   return [...(predicate(node) ? [node] : []),
