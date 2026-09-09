@@ -1,8 +1,8 @@
 import { localizePath } from "@/hooks/localizePath";
-import { useLocaleStore } from "@/i18n/store";
+import { useCopy } from "@/i18n/store";
 
 export const useLocalizedPath = () => {
-  const locale = useLocaleStore((state) => state.locale);
+  const { locale } = useCopy();
 
   return (path: string) => localizePath(path, locale);
 };

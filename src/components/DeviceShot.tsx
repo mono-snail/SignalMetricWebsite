@@ -20,7 +20,7 @@ export default function DeviceShot({
         width={738}
         height={1600}
         loading={priority ? "eager" : "lazy"}
-        fetchPriority={priority ? "high" : "auto"}
+        {...{ fetchpriority: priority ? "high" : "auto" }}
         decoding="async"
       />
     </figure>

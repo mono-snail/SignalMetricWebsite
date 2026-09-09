@@ -25,11 +25,12 @@ Configure these values in the Cloudflare Pages Production environment:
 
 ```text
 VITE_PUBLIC_SITE_URL=https://signalmetric.monoware.app
-VITE_APP_STORE_URL=<public App Store URL when available>
+VITE_APP_STORE_URL=https://apps.apple.com/app/signalmetric/id6797239928
 ```
 
-`VITE_APP_STORE_URL` is optional before the App Store listing is public. When
-it is absent, download actions display a non-clickable coming-soon state.
+`VITE_APP_STORE_URL` is optional: the real public store URL above is also the
+shared default in `src/content/site.ts`. A missing build variable never
+disables download links. No prices are embedded in structured data.
 
 ## Cloudflare Pages
 
@@ -38,7 +39,24 @@ branch `main`, build command `npm run build`, and output directory `dist`.
 Associate `signalmetric.monoware.app` only after the first `*.pages.dev`
 production deployment succeeds.
 
-The build prerenders `/measurements/`, `/support/`, and `/privacy/` into
-route-specific HTML files with unique metadata and structured data. The static
-`404.html` prevents unknown URLs from being served as soft-404 copies of the
-home page.
+The build uses React server rendering and an HTML parser to generate all four
+routes in English, `/zh-CN/`, `/ja/`, and `/ko/`: 16 complete pages with unique
+metadata, canonical URLs, reciprocal language alternatives and a sitemap.
+The static `404.html` prevents unknown URLs from becoming soft-404 copies.
+Legacy `?lang=` links continue to work and normalize to locale paths.
+
+Before pushing the production branch, run lint, type checks, tests and build.
+The build fails if any localized page is missing its download links, language
+alternatives, complete glossary, or export privacy disclosure.
+
+Browser gate (start the dev server first):
+
+```bash
+npx playwright install chromium
+node scripts/verify-browser.mjs
+```
+
+The browser gate checks 390px and 1440px layouts, four languages, navigation,
+legacy links, search and privacy. It does not submit the support form.
+After pushing, verify the production domain's HTML and assets. A successful
+Git push alone is not deployment confirmation.

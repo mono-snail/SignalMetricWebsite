@@ -1,9 +1,12 @@
 import { LockKeyhole, Mail } from "lucide-react";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
+import { measurementPrivacy } from "@/content/measurementPrivacy";
 
 export default function PrivacyPage() {
-  const { copy } = useCopy();
+  const { copy, locale } = useCopy();
+  const sections = copy.privacy.sections.flatMap((section) =>
+    section.id === "imports" ? [section, measurementPrivacy[locale]] : [section]);
   usePageMetadata("privacy");
 
   return (
@@ -16,7 +19,9 @@ export default function PrivacyPage() {
         <div>
           <p>{copy.privacy.lead}</p>
           <span className="effective-date">
-            {copy.privacy.effective} · {copy.privacy.effectiveDate}
+            {copy.privacy.effective} · {new Intl.DateTimeFormat(locale, {
+              dateStyle: "long", timeZone: "UTC",
+            }).format(new Date("2026-09-09T00:00:00Z"))}
           </span>
         </div>
       </section>
@@ -26,7 +31,7 @@ export default function PrivacyPage() {
           <LockKeyhole size={22} aria-hidden="true" />
           <strong>SIGNAL / METRIC</strong>
           <nav aria-label="Privacy policy sections">
-            {copy.privacy.sections.map((section, index) => (
+            {sections.map((section, index) => (
               <a href={`#${section.id}`} key={section.id}>
                 <span>{String(index + 1).padStart(2, "0")}</span>
                 {section.title}
@@ -36,7 +41,7 @@ export default function PrivacyPage() {
         </aside>
 
         <article className="policy-content">
-          {copy.privacy.sections.map((section, index) => (
+          {sections.map((section, index) => (
             <section id={section.id} key={section.id}>
               <header>
                 <span>{String(index + 1).padStart(2, "0")}</span>

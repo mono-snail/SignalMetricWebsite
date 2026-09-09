@@ -7,13 +7,14 @@ import PrivacyPage from "@/pages/PrivacyPage";
 import SupportPage from "@/pages/SupportPage";
 import { Router } from "@/routing/router";
 import {
-  normalizeRoutePath,
   useLocation,
+  type RouterLocation,
 } from "@/routing/routerContext";
+import { contentPath } from "@/routing/localePaths";
 
-export default function App() {
+export default function App({ initialLocation }: { initialLocation?: RouterLocation }) {
   return (
-    <Router>
+    <Router initialLocation={initialLocation}>
       <AppContent />
     </Router>
   );
@@ -21,7 +22,7 @@ export default function App() {
 
 function AppContent() {
   const location = useLocation();
-  const path = normalizeRoutePath(location.pathname);
+  const path = contentPath(location.pathname);
   let page = <NotFoundPage />;
 
   if (path === "/") {
@@ -48,7 +49,7 @@ function RouteEffects() {
   useEffect(() => {
     if (location.hash) {
       window.requestAnimationFrame(() => {
-        document.querySelector(location.hash)?.scrollIntoView();
+        document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView();
       });
     } else {
       window.scrollTo({ top: 0, behavior: "instant" });

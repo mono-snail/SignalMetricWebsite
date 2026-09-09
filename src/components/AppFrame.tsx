@@ -6,12 +6,11 @@ import { useCopy, useLocaleStore } from "@/i18n/store";
 import { locales, type Locale } from "@/i18n/types";
 import { Link, NavLink } from "@/routing/router";
 import { useLocation } from "@/routing/routerContext";
+import { appStoreUrl } from "@/content/site";
 
 interface AppFrameProps {
   children: ReactNode;
 }
-
-const appStoreUrl = import.meta.env.VITE_APP_STORE_URL as string | undefined;
 
 export default function AppFrame({ children }: AppFrameProps) {
   const { copy, locale } = useCopy();
@@ -93,21 +92,10 @@ export default function AppFrame({ children }: AppFrameProps) {
               </select>
             </label>
 
-            {appStoreUrl ? (
-              <a
-                className="nav-cta"
-                href={appStoreUrl}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {copy.common.appStore}
-                <ArrowUpRight size={15} aria-hidden="true" />
-              </a>
-            ) : (
-              <span className="nav-cta nav-cta-disabled">
-                {copy.common.comingSoon}
-              </span>
-            )}
+            <a className="nav-cta" href={appStoreUrl}>
+              {copy.common.appStore}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
 
             <button
               className="menu-button"
@@ -162,6 +150,7 @@ export default function AppFrame({ children }: AppFrameProps) {
             <p>{copy.footer.statement}</p>
           </div>
           <div className="footer-links">
+            <a href={appStoreUrl}>{copy.common.appStore}</a>
             <Link to={localizedPath("/measurements/")}>
               {copy.nav.measurements}
             </Link>

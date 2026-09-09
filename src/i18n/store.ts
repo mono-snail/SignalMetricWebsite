@@ -1,20 +1,20 @@
 import { create } from "zustand";
+import { createContext, useContext } from "react";
 import { copy } from "./copy";
 import { locales, type Locale } from "./types";
-
-const storageKey = "signalmetric.language";
+import { localizePath } from "@/hooks/localizePath";
+import { routeLocale, languageTag } from "@/routing/localePaths";
 
 const isLocale = (value: string | null): value is Locale =>
   locales.includes(value as Locale);
 
 const initialLocale = (): Locale => {
+  if (typeof window === "undefined") return "en";
   const parameter = new URLSearchParams(window.location.search).get("lang");
   if (isLocale(parameter)) {
     return parameter;
   }
-
-  const stored = window.localStorage.getItem(storageKey);
-  return isLocale(stored) ? stored : "en";
+  return routeLocale(window.location.pathname);
 };
 
 interface LocaleState {
@@ -23,21 +23,17 @@ interface LocaleState {
 }
 
 const applyLocale = (locale: Locale) => {
-  document.documentElement.lang = locale;
-  window.localStorage.setItem(storageKey, locale);
-
-  const url = new URL(window.location.href);
-  if (locale === "en") {
-    url.searchParams.delete("lang");
-  } else {
-    url.searchParams.set("lang", locale);
-  }
-  window.history.replaceState({}, "", url);
+  document.documentElement.lang = languageTag(locale);
+  const path = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+  window.history.pushState({}, "", localizePath(path, locale));
+  window.dispatchEvent(new PopStateEvent("popstate"));
 };
 
 export const useLocaleStore = create<LocaleState>((set) => {
   const locale = initialLocale();
-  document.documentElement.lang = locale;
+  if (typeof document !== "undefined") {
+    document.documentElement.lang = languageTag(locale);
+  }
 
   return {
     locale,
@@ -48,7 +44,19 @@ export const useLocaleStore = create<LocaleState>((set) => {
   };
 });
 
+if (typeof window !== "undefined") {
+  window.addEventListener("popstate", () => {
+    const locale = initialLocale();
+    document.documentElement.lang = languageTag(locale);
+    useLocaleStore.setState({ locale });
+  });
+}
+
+export const RenderLocaleContext = createContext<Locale | null>(null);
+
 export const useCopy = () => {
-  const locale = useLocaleStore((state) => state.locale);
+  const override = useContext(RenderLocaleContext);
+  const selected = useLocaleStore((state) => state.locale);
+  const locale = override ?? selected;
   return { locale, copy: copy[locale] };
 };

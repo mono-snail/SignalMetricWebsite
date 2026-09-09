@@ -10,10 +10,14 @@ import {
   readLocation,
   RouterContext,
   useLocation,
+  type RouterLocation,
 } from "@/routing/routerContext";
 
-export function Router({ children }: { children: ReactNode }) {
-  const [location, setLocation] = useState(readLocation);
+export function Router({ children, initialLocation }: {
+  children: ReactNode;
+  initialLocation?: RouterLocation;
+}) {
+  const [location, setLocation] = useState(initialLocation ?? readLocation);
 
   useEffect(() => {
     const locationChanged = () => setLocation(readLocation());
@@ -75,7 +79,7 @@ export function Link({ to, onClick, ...props }: LinkProps) {
 
 export function NavLink({ to, className, ...props }: LinkProps) {
   const { pathname } = useLocation();
-  const targetPath = new URL(to, window.location.href).pathname;
+  const targetPath = new URL(to, "https://signalmetric.monoware.app").pathname;
   const active =
     normalizeRoutePath(pathname) === normalizeRoutePath(targetPath);
   const mergedClassName = [className, active ? "active" : ""]

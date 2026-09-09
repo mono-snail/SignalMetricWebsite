@@ -422,7 +422,9 @@ h3 {
 }
 
 .hero h1 {
-  max-width: 8ch;
+  max-width: 100%;
+  font-size: 3.5rem;
+  letter-spacing: 0;
 }
 
 .hero-lead {
@@ -1735,6 +1737,54 @@ h3 {
   font-size: 0.75rem;
 }
 
+.reading-section {
+  padding-block: 4.5rem;
+}
+
+.reading-section h2 {
+  max-width: 42rem;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+  line-height: 1.25;
+}
+
+.reading-links {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+.reading-links a {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 1rem;
+  padding-block: 1.5rem;
+  border-top: 1px solid var(--line);
+}
+
+.reading-links h3 {
+  grid-column: 1;
+  margin: 0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+}
+
+.reading-links svg {
+  grid-column: 2;
+  grid-row: 2;
+  color: var(--signal);
+}
+
+.reading-number {
+  color: var(--muted);
+  font-family: "SFMono-Regular", monospace;
+}
+
+@media (max-width: 760px) {
+  .reading-links { grid-template-columns: 1fr; gap: 0; }
+  .reading-section h2 { font-size: 1.5rem; }
+}
+
 /* Footer and 404 */
 
 .site-footer {
@@ -2124,7 +2174,7 @@ h3 {
   }
 
   .hero h1 {
-    font-size: clamp(3.6rem, 18vw, 5.3rem);
+    font-size: 2.25rem;
   }
 
   .hero-visual {

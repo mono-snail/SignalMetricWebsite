@@ -4,23 +4,27 @@ import { localizePath } from "./localizePath";
 describe("localizePath", () => {
   it("places the locale before a fragment", () => {
     expect(localizePath("/#instruments", "zh-CN")).toBe(
-      "/?lang=zh-CN#instruments",
+      "/zh-CN/#instruments",
     );
   });
 
   it("preserves existing query parameters and fragments", () => {
     expect(localizePath("/measurements/?group=level#rms", "ja")).toBe(
-      "/measurements/?group=level&lang=ja#rms",
+      "/ja/measurements/?group=level#rms",
     );
   });
 
   it("replaces an existing locale", () => {
-    expect(localizePath("/support/?lang=ja", "ko")).toBe(
-      "/support/?lang=ko",
+    expect(localizePath("/ja/support/?lang=ja", "ko")).toBe(
+      "/ko/support/",
     );
   });
 
   it("removes the locale for English", () => {
-    expect(localizePath("/privacy/?lang=zh-CN", "en")).toBe("/privacy/");
+    expect(localizePath("/zh-CN/privacy/?lang=zh-CN", "en")).toBe("/privacy/");
+  });
+
+  it("does not mistake a content slug for a locale", () => {
+    expect(localizePath("/japan/", "ja")).toBe("/ja/japan/");
   });
 });

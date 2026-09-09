@@ -1,15 +1,11 @@
 import { useEffect } from "react";
 import { useCopy } from "@/i18n/store";
 import { useLocation } from "@/routing/routerContext";
+import { appStoreUrl, publicSiteUrl } from "@/content/site";
+import { languageTag, localizedRoute } from "@/routing/localePaths";
+import { locales, type Locale } from "@/i18n/types";
 
-type PageKind = "home" | "measurements" | "support" | "privacy" | "notFound";
-
-const publicSiteUrl =
-  import.meta.env.VITE_PUBLIC_SITE_URL?.replace(/\/$/, "") ??
-  window.location.origin;
-const appStoreUrl =
-  (import.meta.env.VITE_APP_STORE_URL as string | undefined) ??
-  "https://apps.apple.com/us/app/signalmetric/id6797239928";
+export type PageKind = "home" | "measurements" | "support" | "privacy" | "notFound";
 
 export const usePageMetadata = (page: PageKind) => {
   const { copy, locale } = useCopy();
@@ -43,7 +39,7 @@ export const usePageMetadata = (page: PageKind) => {
     setMeta('meta[name="twitter:title"]', title);
     setMeta('meta[name="twitter:description"]', description);
 
-    const canonicalUrl = `${publicSiteUrl}${location.pathname}`;
+    const canonicalUrl = `${publicSiteUrl}${localizedRoute(location.pathname, locale)}`;
     const canonical = document.querySelector<HTMLLinkElement>(
       'link[rel="canonical"]',
     );
@@ -51,6 +47,16 @@ export const usePageMetadata = (page: PageKind) => {
       canonical.href = canonicalUrl;
     }
     setMeta('meta[property="og:url"]', canonicalUrl);
+    document.querySelectorAll('link[hreflang]').forEach((link) => link.remove());
+    if (!isNotFound) {
+      for (const language of [...locales, "x-default"] as const) {
+        const link = document.createElement("link");
+        link.rel = "alternate";
+        link.hreflang = language === "x-default" ? language : languageTag(language);
+        link.href = `${publicSiteUrl}${localizedRoute(location.pathname, language === "x-default" ? "en" : language)}`;
+        document.head.append(link);
+      }
+    }
 
     let structuredData = document.querySelector<HTMLScriptElement>(
       "#seo-structured-data",
@@ -62,17 +68,18 @@ export const usePageMetadata = (page: PageKind) => {
       document.head.append(structuredData);
     }
     structuredData.textContent = JSON.stringify(
-      buildStructuredData(page, title, description, canonicalUrl, copy),
+      buildStructuredData(page, title, description, canonicalUrl, copy, locale),
     );
   }, [copy, locale, location.pathname, page]);
 };
 
-function buildStructuredData(
+export function buildStructuredData(
   page: PageKind,
   title: string,
   description: string,
   canonicalUrl: string,
   copy: ReturnType<typeof useCopy>["copy"],
+  locale: Locale,
 ) {
   const graph: Record<string, unknown>[] = [
     {
@@ -95,7 +102,7 @@ function buildStructuredData(
       name: title,
       headline: page === "measurements" ? title : undefined,
       description,
-      inLanguage: document.documentElement.lang || "en",
+      inLanguage: languageTag(locale),
       isPartOf: { "@id": `${publicSiteUrl}/#website` },
       mainEntity:
         page === "home" ? { "@id": `${publicSiteUrl}/#application` } : undefined,

@@ -11,8 +11,8 @@ import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
 import { Link } from "@/routing/router";
-
-const appStoreUrl = import.meta.env.VITE_APP_STORE_URL as string | undefined;
+import { appStoreUrl } from "@/content/site";
+import ReadingLinks from "@/components/ReadingLinks";
 
 export default function HomePage() {
   const { copy } = useCopy();
@@ -35,16 +35,10 @@ export default function HomePage() {
           <h1>{copy.home.heroTitle}</h1>
           <p className="hero-lead">{copy.home.heroLead}</p>
           <div className="hero-actions">
-            {appStoreUrl ? (
-              <a className="button button-primary" href={appStoreUrl}>
-                {copy.common.appStore}
-                <ArrowRight size={17} aria-hidden="true" />
-              </a>
-            ) : (
-              <span className="button button-primary button-disabled">
-                {copy.common.comingSoon}
-              </span>
-            )}
+            <a className="button button-primary" href={appStoreUrl}>
+              {copy.common.appStore}
+              <ArrowRight size={17} aria-hidden="true" />
+            </a>
             <Link
               className="button button-secondary"
               to={localizedPath("/measurements/")}
@@ -215,22 +209,18 @@ export default function HomePage() {
         </div>
       </section>
 
+      <ReadingLinks />
+
       <section className="section-shell final-cta">
         <span className="cta-signal" aria-hidden="true" />
         <p className="eyebrow">SIGNAL / METRIC</p>
         <h2>{copy.home.ctaTitle}</h2>
         <p>{copy.home.ctaLead}</p>
         <div className="hero-actions">
-          {appStoreUrl ? (
-            <a className="button button-primary" href={appStoreUrl}>
-              {copy.common.appStore}
-              <ArrowRight size={17} aria-hidden="true" />
-            </a>
-          ) : (
-            <span className="button button-primary button-disabled">
-              {copy.common.comingSoon}
-            </span>
-          )}
+          <a className="button button-primary" href={appStoreUrl}>
+            {copy.common.appStore}
+            <ArrowRight size={17} aria-hidden="true" />
+          </a>
           <Link className="button button-secondary" to={localizedPath("/support/")}>
             {copy.nav.support}
           </Link>

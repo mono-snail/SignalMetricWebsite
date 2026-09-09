@@ -4,9 +4,9 @@ export const copy: Record<Locale, SiteCopy> = {
   en: {
     languageName: "English",
     meta: {
-      homeTitle: "SignalMetric — Professional Audio Analysis for iPhone",
+      homeTitle: "SignalMetric — Audio Analyzer for iPhone and iPad",
       homeDescription:
-        "Inspect LUFS, True Peak, FFT spectrum, dynamics, waveform and spectral history privately on iPhone.",
+        "Check loudness, peaks and frequencies from your microphone or local recordings on iPhone and iPad. One purchase. No ads or subscriptions.",
       measurementsTitle: "Measurement Guide — SignalMetric",
       measurementsDescription:
         "Understand every SignalMetric reading, from dBFS and LUFS to True Peak, dynamics, spectrum and signal integrity.",
@@ -38,12 +38,12 @@ export const copy: Record<Locale, SiteCopy> = {
       backHome: "Back to SignalMetric",
     },
     home: {
-      heroEyebrow: "A PROFESSIONAL AUDIO INSTRUMENT FOR IPHONE",
-      heroTitle: "Audio, measured.",
+      heroEyebrow: "AUDIO ANALYZER FOR IPHONE & IPAD",
+      heroTitle: "SignalMetric",
       heroLead:
-        "See level, loudness, dynamics, spectrum and signal integrity in one precise, private instrument. Built for people who need evidence, not decorative motion.",
+        "Check loudness, peaks and frequencies in your voice-overs, podcasts and recordings. Open your audio or inspect a live microphone, privately on your device.",
       heroNote:
-        "Live microphone windows are analyzed in memory. Recording starts only when you explicitly tap Record.",
+        "One purchase. No ads. No subscriptions. Your audio stays on your device.",
       heroImageAlt:
         "SignalMetric Monitor showing live dBFS level, Peak Hold, spectrum and measurement deck",
       proof: [
@@ -370,9 +370,9 @@ export const copy: Record<Locale, SiteCopy> = {
   "zh-CN": {
     languageName: "简体中文",
     meta: {
-      homeTitle: "SignalMetric — iPhone 专业音频分析仪",
+      homeTitle: "SignalMetric — iPhone 与 iPad 音频分析仪",
       homeDescription:
-        "在 iPhone 端侧私密分析 LUFS、True Peak、FFT 频谱、动态、波形与频谱历史。",
+        "在 iPhone 与 iPad 上检查配音、播客和录音的响度、峰值与频谱。本地分析，一次买断，无广告、无订阅。",
       measurementsTitle: "测量指南 — SignalMetric",
       measurementsDescription:
         "理解 SignalMetric 的每项读数，从 dBFS、LUFS 到 True Peak、动态、频谱与信号完整性。",
@@ -403,12 +403,12 @@ export const copy: Record<Locale, SiteCopy> = {
       backHome: "返回 SignalMetric",
     },
     home: {
-      heroEyebrow: "为 IPHONE 打造的专业音频仪器",
-      heroTitle: "让声音，可测量。",
+      heroEyebrow: "IPHONE 与 IPAD 音频分析仪",
+      heroTitle: "SignalMetric",
       heroLead:
-        "在一个精确、私密的仪器中同时查看电平、响度、动态、频谱和信号完整性。面向需要证据，而不是装饰动画的人。",
+        "检查配音、播客和录音的响度、峰值与频率。打开自己的音频，或观察实时麦克风，所有分析在设备本地完成。",
       heroNote:
-        "实时麦克风窗口只在内存中分析。只有你明确点击 Record 后才会开始录音。",
+        "一次买断。无广告。无订阅。音频留在你的设备上。",
       heroImageAlt: "SignalMetric Monitor 显示实时 dBFS、电平保持、频谱和测量面板",
       proof: [
         { value: "2,048", label: "点 HANN FFT" },
@@ -725,7 +725,7 @@ export const copy: Record<Locale, SiteCopy> = {
   ja: {
     languageName: "日本語",
     meta: {
-      homeTitle: "SignalMetric — iPhone向けプロ音声解析",
+      homeTitle: "SignalMetric — iPhone・iPadの音声解析",
       homeDescription:
         "LUFS、True Peak、FFT、ダイナミクス、波形、スペクトル履歴をiPhone上でプライベートに解析。",
       measurementsTitle: "測定ガイド — SignalMetric",
@@ -759,12 +759,12 @@ export const copy: Record<Locale, SiteCopy> = {
       backHome: "SignalMetricへ戻る",
     },
     home: {
-      heroEyebrow: "IPHONE向けプロフェッショナル音声計測器",
-      heroTitle: "音を、測る。",
+      heroEyebrow: "IPHONE・IPAD向け音声アナライザー",
+      heroTitle: "SignalMetric",
       heroLead:
-        "レベル、ラウドネス、ダイナミクス、スペクトル、信号品質を、精密でプライベートな一つの計測器に。装飾ではなく根拠を必要とする人のために。",
+        "ナレーション、ポッドキャスト、録音のラウドネス・ピーク・周波数を確認。音声ファイルもライブマイクも、デバイス内で解析できます。",
       heroNote:
-        "ライブマイクはメモリ内だけで解析されます。Recordを明示的に押すまで録音は始まりません。",
+        "買い切り。広告なし。サブスクリプションなし。音声はデバイス内に。",
       heroImageAlt:
         "ライブdBFS、Peak Hold、スペクトル、測定デッキを表示するSignalMetric Monitor",
       proof: [
@@ -1088,7 +1088,7 @@ export const copy: Record<Locale, SiteCopy> = {
   ko: {
     languageName: "한국어",
     meta: {
-      homeTitle: "SignalMetric — iPhone 전문 오디오 분석",
+      homeTitle: "SignalMetric — iPhone 및 iPad 오디오 분석",
       homeDescription:
         "LUFS, True Peak, FFT 스펙트럼, 다이내믹, 파형과 스펙트럼 기록을 iPhone에서 비공개로 분석하세요.",
       measurementsTitle: "측정 가이드 — SignalMetric",
@@ -1122,12 +1122,12 @@ export const copy: Record<Locale, SiteCopy> = {
       backHome: "SignalMetric으로 돌아가기",
     },
     home: {
-      heroEyebrow: "IPHONE을 위한 전문 오디오 인스트루먼트",
-      heroTitle: "오디오를, 측정하다.",
+      heroEyebrow: "IPHONE 및 IPAD 오디오 분석기",
+      heroTitle: "SignalMetric",
       heroLead:
-        "레벨, 라우드니스, 다이내믹, 스펙트럼과 신호 무결성을 하나의 정밀하고 비공개인 인스트루먼트에서 확인하세요. 장식이 아닌 근거가 필요한 사람을 위해 만들었습니다.",
+        "보이스오버, 팟캐스트, 녹음의 라우드니스, 피크와 주파수를 확인하세요. 오디오 파일과 실시간 마이크를 기기 안에서 비공개로 분석합니다.",
       heroNote:
-        "라이브 마이크 창은 메모리에서만 분석됩니다. Record를 명시적으로 누르기 전에는 녹음하지 않습니다.",
+        "한 번 구매. 광고 없음. 구독 없음. 오디오는 기기에 보관됩니다.",
       heroImageAlt:
         "라이브 dBFS, Peak Hold, 스펙트럼과 측정 덱을 표시하는 SignalMetric Monitor",
       proof: [
