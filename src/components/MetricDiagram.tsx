@@ -1,4 +1,5 @@
 import { useCopy } from "@/i18n/store";
+import type { SiteCopy } from "@/i18n/types";
 
 export type DiagramKind =
   | "level"
@@ -25,11 +26,11 @@ export default function MetricDiagram({ kind }: MetricDiagramProps) {
   return (
     <figure className="metric-diagram">
       <div className="diagram-canvas">
-        {kind === "level" && <LevelDiagram title={content[0]} />}
-        {kind === "loudness" && <LoudnessDiagram title={content[0]} />}
-        {kind === "dynamics" && <DynamicsDiagram title={content[0]} />}
-        {kind === "spectrum" && <SpectrumDiagram title={content[0]} />}
-        {kind === "zcr" && <ZcrDiagram title={content[0]} />}
+        {kind === "level" && <LevelDiagram title={content[0]} labels={diagram} />}
+        {kind === "loudness" && <LoudnessDiagram title={content[0]} labels={diagram} />}
+        {kind === "dynamics" && <DynamicsDiagram title={content[0]} labels={diagram} />}
+        {kind === "spectrum" && <SpectrumDiagram title={content[0]} labels={diagram} />}
+        {kind === "zcr" && <ZcrDiagram title={content[0]} labels={diagram} />}
       </div>
       <figcaption>
         <strong>{content[0]}</strong>
@@ -41,9 +42,10 @@ export default function MetricDiagram({ kind }: MetricDiagramProps) {
 
 interface DiagramGraphicProps {
   title: string;
+  labels: SiteCopy["measurements"]["diagrams"];
 }
 
-function LevelDiagram({ title }: DiagramGraphicProps) {
+function LevelDiagram({ title, labels }: DiagramGraphicProps) {
   return (
     <svg viewBox="0 0 420 190" role="img" aria-labelledby="level-title">
       <title id="level-title">{title}</title>
@@ -68,14 +70,14 @@ function LevelDiagram({ title }: DiagramGraphicProps) {
         <text x="137" y="170">−48</text>
         <text x="242" y="170">−24</text>
         <text x="376" y="170">0</text>
-        <text x="283" y="58">HEADROOM</text>
+        <text x="283" y="58">{labels.headroomLabel}</text>
       </g>
       <line className="bracket" x1="286" y1="48" x2="382" y2="48" />
     </svg>
   );
 }
 
-function LoudnessDiagram({ title }: DiagramGraphicProps) {
+function LoudnessDiagram({ title, labels }: DiagramGraphicProps) {
   return (
     <svg viewBox="0 0 420 190" role="img" aria-labelledby="loudness-title">
       <title id="loudness-title">{title}</title>
@@ -93,14 +95,14 @@ function LoudnessDiagram({ title }: DiagramGraphicProps) {
       <line className="integrated-line" x1="34" y1="22" x2="388" y2="22" />
       <g className="diagram-label">
         <text x="224" y="178">M · 400 ms</text>
-        <text x="279" y="178">S · 3 sec</text>
-        <text x="34" y="17">I · GATED SESSION</text>
+        <text x="279" y="178">S · 3 {labels.secondsShort}</text>
+        <text x="34" y="17">I · {labels.gatedSessionLabel}</text>
       </g>
     </svg>
   );
 }
 
-function DynamicsDiagram({ title }: DiagramGraphicProps) {
+function DynamicsDiagram({ title, labels }: DiagramGraphicProps) {
   return (
     <svg viewBox="0 0 420 190" role="img" aria-labelledby="dynamics-title">
       <title id="dynamics-title">{title}</title>
@@ -116,15 +118,15 @@ function DynamicsDiagram({ title }: DiagramGraphicProps) {
       <line className="average-line" x1="34" y1="126" x2="388" y2="126" />
       <line className="peak-line" x1="207" y1="42" x2="207" y2="126" />
       <g className="diagram-label">
-        <text x="42" y="121">AVERAGE / LOUDNESS</text>
-        <text x="216" y="63">PEAK</text>
-        <text x="216" y="92">Δ DYNAMICS</text>
+        <text x="42" y="121">{labels.averageLoudnessLabel}</text>
+        <text x="216" y="63">{labels.peakLabel}</text>
+        <text x="216" y="92">Δ {labels.dynamicsLabel}</text>
       </g>
     </svg>
   );
 }
 
-function SpectrumDiagram({ title }: DiagramGraphicProps) {
+function SpectrumDiagram({ title, labels }: DiagramGraphicProps) {
   return (
     <svg viewBox="0 0 420 190" role="img" aria-labelledby="spectrum-title">
       <title id="spectrum-title">{title}</title>
@@ -141,15 +143,15 @@ function SpectrumDiagram({ title }: DiagramGraphicProps) {
       <line className="rolloff-line" x1="327" y1="28" x2="327" y2="158" />
       <rect className="bandwidth-band" x="126" y="19" width="112" height="10" rx="5" />
       <g className="diagram-label">
-        <text x="147" y="178">CENTROID</text>
+        <text x="147" y="178">{labels.centroidLabel}</text>
         <text x="310" y="178">R85</text>
-        <text x="142" y="16">BANDWIDTH</text>
+        <text x="142" y="16">{labels.bandwidthLabel}</text>
       </g>
     </svg>
   );
 }
 
-function ZcrDiagram({ title }: DiagramGraphicProps) {
+function ZcrDiagram({ title, labels }: DiagramGraphicProps) {
   return (
     <svg viewBox="0 0 420 190" role="img" aria-labelledby="zcr-title">
       <title id="zcr-title">{title}</title>
@@ -165,7 +167,7 @@ function ZcrDiagram({ title }: DiagramGraphicProps) {
         </g>
       ))}
       <g className="diagram-label">
-        <text x="32" y="180">ZERO-CROSSING EVENTS / WINDOW</text>
+        <text x="32" y="180">{labels.zeroCrossingLabel}</text>
       </g>
     </svg>
   );

@@ -6,7 +6,7 @@ import { useCopy, useLocaleStore } from "@/i18n/store";
 import { locales, type Locale } from "@/i18n/types";
 import { Link, NavLink } from "@/routing/router";
 import { useLocation } from "@/routing/routerContext";
-import { appStoreUrl } from "@/content/site";
+import { appStoreUrl, monowareProductsUrl } from "@/content/site";
 
 interface AppFrameProps {
   children: ReactNode;
@@ -49,18 +49,18 @@ export default function AppFrame({ children }: AppFrameProps) {
           <Link
             className="brand-lockup"
             to={localizedPath("/")}
-            aria-label="SignalMetric home"
+            aria-label={copy.common.backHome}
           >
             <span className="brand-mark" aria-hidden="true">
               <Activity size={20} strokeWidth={2.4} />
             </span>
             <span>
               <strong>SIGNAL / METRIC</strong>
-              <small>Audio, measured.</small>
+              <small>{copy.common.tagline}</small>
             </span>
           </Link>
 
-          <nav className="desktop-nav" aria-label="Primary navigation">
+          <nav className="desktop-nav" aria-label={copy.common.primaryNavigation}>
             {navItems.map((item) =>
               item.section ? (
                 <a key={item.to} href={localizedPath(item.to)}>
@@ -72,6 +72,10 @@ export default function AppFrame({ children }: AppFrameProps) {
                 </NavLink>
               ),
             )}
+            <a className="external-nav-link" href={monowareProductsUrl(locale)}>
+              {copy.nav.moreApps}
+              <ArrowUpRight size={13} aria-hidden="true" />
+            </a>
           </nav>
 
           <div className="nav-actions">
@@ -110,7 +114,7 @@ export default function AppFrame({ children }: AppFrameProps) {
         </div>
 
         {menuOpen && (
-          <nav className="mobile-nav" aria-label="Mobile navigation">
+          <nav className="mobile-nav" aria-label={copy.common.mobileNavigation}>
             {navItems.map((item) =>
               item.section ? (
                 <a key={item.to} href={localizedPath(item.to)}>
@@ -122,6 +126,10 @@ export default function AppFrame({ children }: AppFrameProps) {
                 </NavLink>
               ),
             )}
+            <a className="external-nav-link" href={monowareProductsUrl(locale)}>
+              {copy.nav.moreApps}
+              <ArrowUpRight size={15} aria-hidden="true" />
+            </a>
             <div
               className="mobile-languages"
               aria-label={copy.common.language}
@@ -156,6 +164,7 @@ export default function AppFrame({ children }: AppFrameProps) {
             </Link>
             <Link to={localizedPath("/support/")}>{copy.nav.support}</Link>
             <Link to={localizedPath("/privacy/")}>{copy.nav.privacy}</Link>
+            <a href={monowareProductsUrl(locale)}>{copy.nav.moreApps}</a>
           </div>
           <div className="footer-legal">
             <p>{copy.footer.boundary}</p>
@@ -166,7 +175,7 @@ export default function AppFrame({ children }: AppFrameProps) {
         </div>
         <div className="footer-bottom">
           <span>© {new Date().getFullYear()} {copy.footer.rights}</span>
-          <span>ON-DEVICE · NO TRACKING · ONE INSTRUMENT</span>
+          <span>{copy.footer.principles}</span>
         </div>
       </footer>
     </div>

@@ -22,11 +22,19 @@ export const copy: Record<Locale, SiteCopy> = {
       measurements: "Measurements",
       privacy: "Privacy",
       support: "Support",
+      moreApps: "More apps",
       menu: "Open navigation",
       close: "Close navigation",
     },
     common: {
       skipContent: "Skip to content",
+      tagline: "Audio, measured.",
+      primaryNavigation: "Primary navigation",
+      mobileNavigation: "Mobile navigation",
+      technicalSpecification: "Technical specification",
+      metricGroups: "Metric groups",
+      privacySections: "Privacy policy sections",
+      appearance: "appearance",
       language: "Language",
       clearSearch: "Clear search",
       appStore: "View on the App Store",
@@ -168,6 +176,10 @@ export const copy: Record<Locale, SiteCopy> = {
       themesLead:
         "Studio, Pulse, Mono and three daylight systems change the complete visual token set, never the measurement engine.",
       themeNames: ["Studio", "Paper", "Red", "Green", "Pulse", "Mono"],
+      portfolioEyebrow: "THE MONOWARE FAMILY",
+      portfolioTitle: "More local-first tools. One clear standard.",
+      portfolioLead:
+        "Explore apps for private media, local networks, pulse records, sleep audio and browser utilities.",
       ctaTitle: "Carry a measurement deck in your pocket.",
       ctaLead:
         "Analyze the microphone, an imported file or an explicit local recording without an account or subscription.",
@@ -183,6 +195,7 @@ export const copy: Record<Locale, SiteCopy> = {
       searchPlaceholder: "Search LUFS, headroom, centroid…",
       allGroups: "All readings",
       noResults: "No measurement matches this search.",
+      summaryLabel: "31 READINGS · 6 GROUPS",
       window: "Window / method",
       howToRead: "How to read it",
       limit: "Limit",
@@ -202,6 +215,15 @@ export const copy: Record<Locale, SiteCopy> = {
         zcrTitle: "Zero crossings",
         zcrDescription:
           "ZCR counts sign changes. More high-frequency or noisy content usually crosses zero more often.",
+        headroomLabel: "HEADROOM",
+        gatedSessionLabel: "GATED SESSION",
+        averageLoudnessLabel: "AVERAGE / LOUDNESS",
+        peakLabel: "PEAK",
+        dynamicsLabel: "DYNAMICS",
+        centroidLabel: "CENTROID",
+        bandwidthLabel: "BANDWIDTH",
+        zeroCrossingLabel: "ZERO-CROSSING EVENTS / WINDOW",
+        secondsShort: "sec",
       },
     },
     support: {
@@ -210,6 +232,7 @@ export const copy: Record<Locale, SiteCopy> = {
       lead:
         "Check the common answers below or send Monoware Support a reproducible issue, improvement or feature request.",
       faqTitle: "Common questions",
+      directContact: "DIRECT CONTACT",
       faqs: [
         {
           question: "What is the difference between Demo and Mic?",
@@ -360,6 +383,7 @@ export const copy: Record<Locale, SiteCopy> = {
         "SignalMetric is not a calibrated SPL meter or certified delivery-compliance instrument.",
       contact: "Privacy contact",
       rights: "Monoware. All rights reserved.",
+      principles: "ON-DEVICE · NO TRACKING · ONE INSTRUMENT",
     },
     notFound: {
       eyebrow: "404 · NO SIGNAL",
@@ -387,11 +411,19 @@ export const copy: Record<Locale, SiteCopy> = {
       measurements: "测量指南",
       privacy: "隐私",
       support: "支持",
+      moreApps: "更多 App",
       menu: "打开导航",
       close: "关闭导航",
     },
     common: {
       skipContent: "跳到正文",
+      tagline: "音频，精确测量。",
+      primaryNavigation: "主导航",
+      mobileNavigation: "移动端导航",
+      technicalSpecification: "技术规格",
+      metricGroups: "测量分组",
+      privacySections: "隐私政策章节",
+      appearance: "外观",
       language: "语言",
       clearSearch: "清除搜索",
       appStore: "前往 App Store",
@@ -529,6 +561,10 @@ export const copy: Record<Locale, SiteCopy> = {
       themesLead:
         "Studio、Pulse、Mono 与三套日光主题会改变完整视觉 Token，但绝不改变测量内核。",
       themeNames: ["Studio", "Paper", "Red", "Green", "Pulse", "Mono"],
+      portfolioEyebrow: "MONOWARE 产品矩阵",
+      portfolioTitle: "更多本地优先工具，同一套清晰标准。",
+      portfolioLead:
+        "探索面向私密媒体、本地网络、脉搏记录、睡眠声音和浏览器工作的其他 App。",
       ctaTitle: "把专业测量台放进口袋。",
       ctaLead:
         "无需账号或订阅，即可分析麦克风、导入文件或明确创建的本地录音。",
@@ -544,6 +580,7 @@ export const copy: Record<Locale, SiteCopy> = {
       searchPlaceholder: "搜索 LUFS、余量、频谱质心…",
       allGroups: "全部读数",
       noResults: "没有匹配的测量项。",
+      summaryLabel: "31 项读数 · 6 个分组",
       window: "时间窗 / 方法",
       howToRead: "如何理解",
       limit: "限制",
@@ -562,6 +599,15 @@ export const copy: Record<Locale, SiteCopy> = {
           "Centroid 是能量加权中心，Bandwidth 描述扩散，R85 表示其下包含 85% 能量的频率。",
         zcrTitle: "过零率",
         zcrDescription: "ZCR 统计符号变化。高频或噪声更多的内容通常会更频繁地过零。",
+        headroomLabel: "余量",
+        gatedSessionLabel: "门限会话",
+        averageLoudnessLabel: "平均值 / 响度",
+        peakLabel: "峰值",
+        dynamicsLabel: "动态",
+        centroidLabel: "质心",
+        bandwidthLabel: "带宽",
+        zeroCrossingLabel: "时间窗内的过零事件",
+        secondsShort: "秒",
       },
     },
     support: {
@@ -569,6 +615,7 @@ export const copy: Record<Locale, SiteCopy> = {
       title: "为精密仪器提供精确帮助。",
       lead: "先查看常见答案，或向 Monoware Support 提交可复现的问题、改进和功能需求。",
       faqTitle: "常见问题",
+      directContact: "直接联系",
       faqs: [
         {
           question: "Demo 和 Mic 有什么区别？",
@@ -715,11 +762,391 @@ export const copy: Record<Locale, SiteCopy> = {
       boundary: "SignalMetric 不是校准 SPL 表或认证交付合规仪器。",
       contact: "隐私联系",
       rights: "Monoware 保留所有权利。",
+      principles: "设备端 · 无跟踪 · 一台精密仪器",
     },
     notFound: {
       eyebrow: "404 · 无信号",
       title: "这个路由没有声音。",
       body: "请求的页面不存在或已移动。",
+    },
+  },
+  "zh-Hant": {
+    languageName: "繁體中文",
+    meta: {
+      homeTitle: "SignalMetric — iPhone 與 iPad 音訊分析儀",
+      homeDescription:
+        "在 iPhone 與 iPad 上檢查配音、播客和錄音的響度、峰值與頻譜。本機分析，一次買斷，無廣告、無訂閱。",
+      measurementsTitle: "測量指南 — SignalMetric",
+      measurementsDescription:
+        "理解 SignalMetric 的每項讀數，從 dBFS、LUFS 到 True Peak、動態、頻譜與信號完整性。",
+      supportTitle: "支援與意見回饋 — SignalMetric",
+      supportDescription: "取得 SignalMetric 協助，或向 Monoware 提交需求、改進與 Bug。",
+      privacyTitle: "隱私政策 — SignalMetric",
+      privacyDescription:
+        "瞭解 SignalMetric 如何處理麥克風分析、錄音、匯入音訊、本機偏好和主動意見回饋。",
+    },
+    nav: {
+      instruments: "儀器",
+      measurements: "測量指南",
+      privacy: "隱私",
+      support: "支援",
+      moreApps: "更多 App",
+      menu: "開啟導覽",
+      close: "關閉導覽",
+    },
+    common: {
+      skipContent: "跳到主要內容",
+      tagline: "音訊，精確測量。",
+      primaryNavigation: "主要導覽",
+      mobileNavigation: "行動版導覽",
+      technicalSpecification: "技術規格",
+      metricGroups: "測量分組",
+      privacySections: "隱私政策章節",
+      appearance: "外觀",
+      language: "語言",
+      clearSearch: "清除搜尋",
+      appStore: "前往 App Store",
+      comingSoon: "即將登上 App Store",
+      learnMeasurements: "開啟測量指南",
+      digitalNotSpl: "數位滿量程，不是校準 SPL。",
+      localOnly: "私密的裝置端分析",
+      readMore: "檢視定義",
+      backHome: "返回 SignalMetric",
+    },
+    home: {
+      heroEyebrow: "IPHONE 與 IPAD 音訊分析儀",
+      heroTitle: "SignalMetric",
+      heroLead:
+        "檢查配音、播客與錄音的響度、峰值及頻率。開啟自己的音訊，或觀察即時麥克風，所有分析都在裝置上完成。",
+      heroNote:
+        "一次買斷。無廣告。無訂閱。音訊留在你的裝置上。",
+      heroImageAlt: "SignalMetric Monitor 顯示即時 dBFS、電平保持、頻譜和測量面板",
+      proof: [
+        { value: "2,048", label: "點 HANN FFT" },
+        { value: "64", label: "對數頻譜帶" },
+        { value: "4×", label: "TRUE PEAK 估算" },
+        { value: "30", label: "顯示 FPS" },
+        { value: "0", label: "帳號或追蹤器" },
+      ],
+      instrumentsEyebrow: "四個一致的工作區",
+      instrumentsTitle: "同一個分析內核，四種觀察方式。",
+      instrumentsLead:
+        "切換視圖不會中斷輸入或重置工作階段。每個工作區都會清楚呈現解析度、時間窗與能力邊界。",
+      instruments: [
+        {
+          id: "monitor",
+          name: "Monitor",
+          eyebrow: "電平與信號總覽",
+          description: "一眼讀取 RMS、Peak Hold、True Peak 估算、餘量與整體頻譜形狀。",
+          evidence: ["30 FPS 顯示", "固定 dBFS 刻度", "信號健康狀態"],
+          image: "/images/optimized/1.jpg",
+          alt: "Studio 深色外觀下的 SignalMetric Monitor 工作區",
+        },
+        {
+          id: "spectrum",
+          name: "Spectrum",
+          eyebrow: "頻率證據",
+          description:
+            "檢查 64 個對數頻帶、頻譜統計，以及最強的相干 FFT 分量對應的 Hz 與 dBFS。",
+          evidence: ["45 Hz–16 kHz", "六個最強分量", "觸控檢查"],
+          image: "/images/optimized/2.jpg",
+          alt: "SignalMetric Studio 外觀下的測量面板和頻譜統計",
+        },
+        {
+          id: "timeline",
+          name: "Timeline",
+          eyebrow: "30 秒頻譜歷史",
+          description: "觀察低頻與高頻何時出現。時間從左向右，亮度表示相對能量。",
+          evidence: ["30 秒時間窗", "64 頻帶", "8 FPS 歷史"],
+          image: "/images/optimized/3.jpg",
+          alt: "SignalMetric Timeline 滾動頻譜歷史",
+        },
+        {
+          id: "scope",
+          name: "Scope",
+          eyebrow: "觸發式時域",
+          description: "用穩定的 256-bin 包絡檢查波形形狀、觸發位置、DC 估算與時基。",
+          evidence: ["256 包絡 bin", "上升沿觸發", "滿量程網格"],
+          image: "/images/optimized/4.jpg",
+          alt: "SignalMetric Scope 即時時域波形",
+        },
+      ],
+      metricsEyebrow: "測量面板",
+      metricsTitle: "讓讀數彼此解釋。",
+      metricsLead:
+        "只有峰值而沒有平均電平，就缺少脈絡；只有整合響度而沒有範圍，就會隱藏變化。SignalMetric 把相關證據放在一起。",
+      metricGroups: [
+        {
+          id: "loudness",
+          name: "響度",
+          summary: "透過互補時間窗描述節目的感知電平。",
+          metrics: "M / S / I LUFS · LRA · 目標差值",
+        },
+        {
+          id: "level",
+          name: "電平與峰值",
+          summary: "數位取樣能量、取樣間風險與剩餘餘量。",
+          metrics: "RMS · Sample Peak · True Peak* · Hold",
+        },
+        {
+          id: "dynamics",
+          name: "動態",
+          summary: "峰值與平均值、響度之間在工作階段中的關係。",
+          metrics: "Crest · PSR · PLR · SNR · Floor P10",
+        },
+        {
+          id: "spectrum",
+          name: "頻譜",
+          summary: "能量位於何處，以及它是集中還是更接近噪聲。",
+          metrics: "Dominant · Centroid · Width · R85 · Flatness",
+        },
+        {
+          id: "musical",
+          name: "音樂性",
+          summary: "經過可信度門限的音高與節奏資訊，不營造虛假的確定性。",
+          metrics: "最近音名 · 音分 · BPM · 可信度",
+        },
+        {
+          id: "integrity",
+          name: "信號完整性",
+          summary: "關於偏置、過零、削波與格式的精簡證據。",
+          metrics: "DC · ZCR · 削波事件 · 取樣率 · 聲道",
+        },
+      ],
+      privacyEyebrow: "從設計上保護隱私",
+      privacyTitle: "信號留在裝置上。",
+      privacyLead:
+        "SignalMetric 不需要帳號、廣告畫像或分析 SDK，網路邊界狹窄且明確。",
+      privacyPoints: [
+        {
+          title: "Mic 只做即時分析",
+          detail: "一般麥克風分析不會建立音訊檔案，也不會上傳內容。",
+        },
+        {
+          title: "錄音狀態明確",
+          detail: "只有點擊 Record 後才建立本機 M4A，並持續顯示紅色狀態與計時。",
+        },
+        {
+          title: "檔案保持本機",
+          detail: "匯入與錄音檔案只有在你明確分享時才離開 App。",
+        },
+        {
+          title: "意見回饋由你主動發起",
+          detail: "只有你親自提交支援表單時才會產生網路請求。",
+        },
+      ],
+      themesEyebrow: "六套視覺系統",
+      themesTitle: "光線不同，分析一致。",
+      themesLead:
+        "Studio、Pulse、Mono 與三套日光主題會改變完整視覺 Token，但絕不改變測量內核。",
+      themeNames: ["Studio", "Paper", "Red", "Green", "Pulse", "Mono"],
+      portfolioEyebrow: "MONOWARE 產品矩陣",
+      portfolioTitle: "更多本機優先工具，同一套清晰標準。",
+      portfolioLead:
+        "探索針對私密媒體、區域網路、脈搏紀錄、睡眠音訊與瀏覽器工作的其他 App。",
+      ctaTitle: "把專業測量台放進口袋。",
+      ctaLead:
+        "無需帳號或訂閱，即可分析麥克風、匯入檔案或明確建立的本機錄音。",
+    },
+    measurements: {
+      eyebrow: "指標指南",
+      title: "誠實地理解每個數字。",
+      lead:
+        "下面的每項讀數都說明單位、測量時間窗、實際讀法與限制。SignalMetric 選擇透明證據，而不是看似權威的猜測。",
+      boundaryTitle: "最重要的邊界",
+      boundaryBody:
+        "dBFS 和 dBTP 描述相對於數位滿量程的信號，不是校準的 dB SPL、dBA 或聽力安全劑量。法律、職業安全和認證交付需要經過驗證的裝置與流程。",
+      searchPlaceholder: "搜尋 LUFS、餘量、頻譜質心…",
+      allGroups: "全部讀數",
+      noResults: "沒有符合搜尋條件的測量項目。",
+      summaryLabel: "31 項讀數 · 6 個分組",
+      window: "時間窗 / 方法",
+      howToRead: "如何理解",
+      limit: "限制",
+      diagrams: {
+        levelTitle: "數位電平與餘量",
+        levelDescription:
+          "0 dBFS 是上限。有效信號通常是負值，與 0 的距離就是數位餘量。",
+        loudnessTitle: "三種響度時間尺度",
+        loudnessDescription:
+          "Momentary 反應 400 ms，Short-Term 描述 3 秒，Integrated 累積經過門限的工作階段。",
+        dynamicsTitle: "峰值與平均值",
+        dynamicsDescription:
+          "Crest、PSR 與 PLR 分別比較峰值與 RMS、短時響度和整合響度。",
+        spectrumTitle: "頻譜形狀",
+        spectrumDescription:
+          "Centroid 是能量加權中心，Bandwidth 描述擴散，R85 表示其下包含 85% 能量的頻率。",
+        zcrTitle: "過零率",
+        zcrDescription: "ZCR 統計符號變化。高頻或噪聲更多的內容通常會更頻繁地過零。",
+        headroomLabel: "餘量",
+        gatedSessionLabel: "門限會話",
+        averageLoudnessLabel: "平均值 / 響度",
+        peakLabel: "峰值",
+        dynamicsLabel: "動態",
+        centroidLabel: "質心",
+        bandwidthLabel: "頻寬",
+        zeroCrossingLabel: "時間窗內的過零事件",
+        secondsShort: "秒",
+      },
+    },
+    support: {
+      eyebrow: "支援",
+      title: "為精密儀器提供精確協助。",
+      lead: "先檢視常見答案，或向 Monoware Support 提交可復現的問題、改進和功能需求。",
+      faqTitle: "常見問題",
+      directContact: "直接聯絡",
+      faqs: [
+        {
+          question: "Demo 和 Mic 有什麼差異？",
+          answer:
+            "Demo 是清楚標示的確定性參考信號，不需要權限。Mic 會即時分析目前輸入路由。你可以隨時在 Input & Controls 中切換。",
+        },
+        {
+          question: "Mic 會錄下我的聲音嗎？",
+          answer:
+            "不會。一般 Mic 模式只在記憶體中分析短時間窗並立即丟棄。只有明確點擊 Record 後才會建立檔案，且紅色錄音狀態會持續顯示。",
+        },
+        {
+          question: "如何分析音訊檔案？",
+          answer:
+            "在 Input & Controls 中選擇 Audio，或從 Files/其他 App 開啟支援的音訊。SignalMetric 只保留一個受保護的匯入快取，並提供可拖曳的本機播放器。",
+        },
+        {
+          question: "為什麼 True Peak 標記為 Estimate？",
+          answer:
+            "SignalMetric 透過 4× 過取樣估算取樣間峰值。這是有用的證據，但 App 不是經過認證的交付合規儀表。",
+        },
+        {
+          question: "為什麼它不是 SPL 分貝計？",
+          answer:
+            "這裡沒有把 iPhone 輸入校準到聲壓。SignalMetric 報告數位 dBFS 和響度，不報告 dBA、dBC、劑量或法定聲暴露。",
+        },
+        {
+          question: "可以用它認證廣播母帶嗎？",
+          answer:
+            "不可以。EBU R128 和 ATSC A/85 只是視覺參考目標。正式交付需要合規儀表、正確聲道流程和驗證程序。",
+        },
+        {
+          question: "如何刪除錄音？",
+          answer:
+            "從 Input & Controls 開啟 Recordings，選擇本機項目的 Delete 並確認。刪除 App 也會移除私有錄音儲存。",
+        },
+        {
+          question: "麥克風權限被拒絕後怎麼辦？",
+          answer:
+            "開啟 iOS 設定，找到 SignalMetric 並啟用麥克風，然後返回 App 再選擇 Mic。Demo 與匯入檔案分析不需要該權限。",
+        },
+      ],
+      formEyebrow: "直接意見回饋",
+      formTitle: "參與塑造 SignalMetric。",
+      formLead: "訊息會發送給 Monoware Support。必填欄位會在提交前進行本機驗證。",
+      typeLabel: "意見回饋類型",
+      types: {
+        feature_request: "功能需求",
+        bug: "Bug",
+        improvement: "改進建議",
+        other: "其他",
+      },
+      titleLabel: "標題",
+      titlePlaceholder: "簡短摘要",
+      descriptionLabel: "描述",
+      descriptionPlaceholder: "發生了什麼、你預期什麼，以及如何復現？",
+      emailLabel: "電子郵件",
+      emailPlaceholder: "you@example.com",
+      privacyWarning:
+        "不要包含音訊、密碼、存取權杖、付款資訊、客戶資料或私密日誌。只有提交後，表單與有限的頁面脈絡才會被傳送。",
+      send: "發送意見回饋",
+      sending: "發送中…",
+      successTitle: "意見回饋已收到。",
+      successBody: "訊息已到達 Monoware Support。如需跟進，請保留下方編號。",
+      reference: "編號",
+      another: "繼續意見回饋",
+      errors: {
+        title: "標題需為 3–160 個字元。",
+        description: "描述需為 10–5,000 個字元。",
+        email: "請輸入有效的電子郵件地址。",
+        generic: "意見回饋未能發送，請檢查網路後重試。",
+        tooLarge: "意見回饋內容過長，無法發送。",
+        unavailable: "意見回饋服務暫時不可用。",
+      },
+    },
+    privacy: {
+      eyebrow: "隱私政策",
+      title: "從設計上保護隱私。",
+      lead: "SignalMetric 在你的裝置上分析音訊，不含帳號、廣告、分析或追蹤。",
+      effective: "生效日期",
+      effectiveDate: "2026 年 8 月 2 日",
+      sections: [
+        {
+          id: "microphone",
+          title: "麥克風",
+          paragraphs: [
+            "麥克風權限是選用功能，只有選擇 Mic 或 Record 後才會請求。SignalMetric 在記憶體中處理短取樣時間窗，用於計算數位電平、響度、頻譜、波形、主頻與節奏估算。",
+          ],
+          bullets: [
+            "一般 Mic 音訊不會寫入檔案。",
+            "一般 Mic 音訊不會上傳或傳輸。",
+            "一般 Mic 音訊會在目前分析時間窗後丟棄。",
+            "沒有麥克風權限仍可使用 Demo。",
+          ],
+        },
+        {
+          id: "recording",
+          title: "明確錄音",
+          paragraphs: [
+            "只有點擊 Record 後才會錄音，紅色狀態和計時會持續顯示。停止或中斷時，錄音會完成為 App 私有 Application Support 中的本機 M4A。",
+            "只有你明確使用 iOS 分享選單選擇目的地時，錄音才會離開 App。你可以單獨刪除錄音；刪除 App 也會移除它們。",
+          ],
+        },
+        {
+          id: "imports",
+          title: "匯入音訊",
+          paragraphs: [
+            "開啟音訊檔案時，SignalMetric 會將其複製到受保護的單項快取，用於本機播放和分析。匯入新項目會刪除舊快取，匯入音訊不會上傳。",
+          ],
+        },
+        {
+          id: "feedback",
+          title: "可選意見回饋",
+          paragraphs: [
+            "如果你提交 App 內或網站意見回饋表單，SignalMetric 會透過 HTTPS 向 Monoware Support 傳送所選類別、標題、描述、電子郵件與有限的非敏感版本資訊。",
+            "意見回饋只用於回應支援請求與改進產品，不用於廣告或追蹤。請勿包含音訊、密碼、存取權杖、付款資訊、客戶資料或私密日誌。",
+          ],
+        },
+        {
+          id: "preferences",
+          title: "本機偏好",
+          paragraphs: [
+            "所選儀器、反應模式、外觀與引導完成狀態儲存在本機，不包含音訊、測量歷史或帳號識別資訊。",
+          ],
+        },
+        {
+          id: "website",
+          title: "網站",
+          paragraphs: [
+            "SignalMetric 網站不使用分析、廣告或追蹤腳本。瀏覽器可能儲存語言偏好；只有提交意見回饋時才會向 Monoware Support 發起網路請求。",
+          ],
+        },
+        {
+          id: "contact",
+          title: "聯絡方式與變更",
+          paragraphs: [
+            "重大變更會在這裡公布並更新生效日期。隱私問題可寄至 privacy@monoware.app。",
+          ],
+        },
+      ],
+    },
+    footer: {
+      statement: "在 iPhone 上私密測量專業音訊證據。",
+      boundary: "SignalMetric 不是校準 SPL 表或認證交付合規儀器。",
+      contact: "隱私聯絡",
+      rights: "Monoware 保留所有權利。",
+      principles: "裝置端 · 無追蹤 · 一台精密儀器",
+    },
+    notFound: {
+      eyebrow: "404 · 無信號",
+      title: "這個路由沒有聲音。",
+      body: "請求的頁面不存在或已移動。",
     },
   },
   ja: {
@@ -743,11 +1170,19 @@ export const copy: Record<Locale, SiteCopy> = {
       measurements: "測定ガイド",
       privacy: "プライバシー",
       support: "サポート",
+      moreApps: "ほかのApp",
       menu: "ナビゲーションを開く",
       close: "ナビゲーションを閉じる",
     },
     common: {
       skipContent: "本文へ移動",
+      tagline: "音声を、測る。",
+      primaryNavigation: "メインナビゲーション",
+      mobileNavigation: "モバイルナビゲーション",
+      technicalSpecification: "技術仕様",
+      metricGroups: "測定グループ",
+      privacySections: "プライバシーポリシーのセクション",
+      appearance: "外観",
       language: "言語",
       clearSearch: "検索を消去",
       appStore: "App Storeで見る",
@@ -889,6 +1324,10 @@ export const copy: Record<Locale, SiteCopy> = {
       themesLead:
         "Studio、Pulse、Monoと3つの明色テーマは見た目だけを変え、測定エンジンは変えません。",
       themeNames: ["Studio", "Paper", "Red", "Green", "Pulse", "Mono"],
+      portfolioEyebrow: "MONOWARE 製品ファミリー",
+      portfolioTitle: "ローカルファーストの道具を、同じ明確な基準で。",
+      portfolioLead:
+        "プライベートメディア、ローカルネットワーク、脈拍記録、睡眠音声、ブラウザ作業のためのアプリを紹介します。",
       ctaTitle: "測定デッキをポケットに。",
       ctaLead:
         "アカウントやサブスクリプションなしで、マイク、読み込み音声、明示的なローカル録音を解析。",
@@ -904,6 +1343,7 @@ export const copy: Record<Locale, SiteCopy> = {
       searchPlaceholder: "LUFS、ヘッドルーム、重心を検索…",
       allGroups: "すべて",
       noResults: "一致する測定値がありません。",
+      summaryLabel: "31の測定値 · 6グループ",
       window: "窓 / 方法",
       howToRead: "読み方",
       limit: "限界",
@@ -923,6 +1363,15 @@ export const copy: Record<Locale, SiteCopy> = {
         zcrTitle: "ゼロ交差",
         zcrDescription:
           "ZCRは符号変化を数えます。高域やノイズが多いほど一般に交差が増えます。",
+        headroomLabel: "ヘッドルーム",
+        gatedSessionLabel: "ゲート付きセッション",
+        averageLoudnessLabel: "平均 / ラウドネス",
+        peakLabel: "ピーク",
+        dynamicsLabel: "ダイナミクス",
+        centroidLabel: "重心",
+        bandwidthLabel: "帯域幅",
+        zeroCrossingLabel: "窓内のゼロ交差イベント",
+        secondsShort: "秒",
       },
     },
     support: {
@@ -931,6 +1380,7 @@ export const copy: Record<Locale, SiteCopy> = {
       lead:
         "よくある質問を確認するか、再現可能な問題、改善案、機能要望をMonoware Supportへ送信してください。",
       faqTitle: "よくある質問",
+      directContact: "直接連絡",
       faqs: [
         {
           question: "DemoとMicの違いは？",
@@ -1078,6 +1528,7 @@ export const copy: Record<Locale, SiteCopy> = {
       boundary: "SignalMetricは校正SPL計でも認証済み納品検査機器でもありません。",
       contact: "プライバシー窓口",
       rights: "Monoware. All rights reserved.",
+      principles: "オンデバイス · 追跡なし · 一つの計測器",
     },
     notFound: {
       eyebrow: "404 · NO SIGNAL",
@@ -1106,11 +1557,19 @@ export const copy: Record<Locale, SiteCopy> = {
       measurements: "측정 가이드",
       privacy: "개인정보",
       support: "지원",
+      moreApps: "다른 앱",
       menu: "내비게이션 열기",
       close: "내비게이션 닫기",
     },
     common: {
       skipContent: "본문으로 이동",
+      tagline: "오디오를 측정하다.",
+      primaryNavigation: "기본 내비게이션",
+      mobileNavigation: "모바일 내비게이션",
+      technicalSpecification: "기술 사양",
+      metricGroups: "측정 그룹",
+      privacySections: "개인정보 처리방침 섹션",
+      appearance: "외관",
       language: "언어",
       clearSearch: "검색 지우기",
       appStore: "App Store에서 보기",
@@ -1252,6 +1711,10 @@ export const copy: Record<Locale, SiteCopy> = {
       themesLead:
         "Studio, Pulse, Mono와 세 가지 밝은 테마는 전체 시각 토큰만 바꾸며 측정 엔진은 바꾸지 않습니다.",
       themeNames: ["Studio", "Paper", "Red", "Green", "Pulse", "Mono"],
+      portfolioEyebrow: "MONOWARE 제품군",
+      portfolioTitle: "더 많은 로컬 우선 도구, 하나의 명확한 기준.",
+      portfolioLead:
+        "개인 미디어, 로컬 네트워크, 맥박 기록, 수면 오디오와 브라우저 작업을 위한 앱을 살펴보세요.",
       ctaTitle: "측정 덱을 주머니에.",
       ctaLead:
         "계정이나 구독 없이 마이크, 가져온 오디오, 명시적인 로컬 녹음을 분석하세요.",
@@ -1267,6 +1730,7 @@ export const copy: Record<Locale, SiteCopy> = {
       searchPlaceholder: "LUFS, 헤드룸, 중심 주파수 검색…",
       allGroups: "모든 수치",
       noResults: "일치하는 측정값이 없습니다.",
+      summaryLabel: "31개 측정값 · 6개 그룹",
       window: "창 / 방법",
       howToRead: "읽는 방법",
       limit: "한계",
@@ -1286,6 +1750,15 @@ export const copy: Record<Locale, SiteCopy> = {
         zcrTitle: "영점 교차",
         zcrDescription:
           "ZCR은 부호 변화를 셉니다. 고역이나 노이즈가 많을수록 일반적으로 더 자주 교차합니다.",
+        headroomLabel: "헤드룸",
+        gatedSessionLabel: "게이트 세션",
+        averageLoudnessLabel: "평균 / 라우드니스",
+        peakLabel: "피크",
+        dynamicsLabel: "다이내믹",
+        centroidLabel: "중심",
+        bandwidthLabel: "대역폭",
+        zeroCrossingLabel: "창 내 영점 교차 이벤트",
+        secondsShort: "초",
       },
     },
     support: {
@@ -1294,6 +1767,7 @@ export const copy: Record<Locale, SiteCopy> = {
       lead:
         "자주 묻는 질문을 확인하거나 재현 가능한 문제, 개선 의견, 기능 요청을 Monoware Support로 보내세요.",
       faqTitle: "자주 묻는 질문",
+      directContact: "직접 문의",
       faqs: [
         {
           question: "Demo와 Mic의 차이는 무엇인가요?",
@@ -1443,6 +1917,7 @@ export const copy: Record<Locale, SiteCopy> = {
       boundary: "SignalMetric은 보정된 SPL 미터 또는 인증 납품 검증 기기가 아닙니다.",
       contact: "개인정보 문의",
       rights: "Monoware. All rights reserved.",
+      principles: "온디바이스 · 추적 없음 · 하나의 인스트루먼트",
     },
     notFound: {
       eyebrow: "404 · NO SIGNAL",

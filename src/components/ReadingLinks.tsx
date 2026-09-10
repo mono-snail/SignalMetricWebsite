@@ -1,4 +1,5 @@
 import { ArrowUpRight } from "lucide-react";
+import { monowareUrl } from "@/content/site";
 import { useCopy } from "@/i18n/store";
 
 const articles = [
@@ -18,6 +19,11 @@ const labels = {
     category: "使用与技术",
     titles: ["读懂信号：响度、峰值与频谱", "实时音频分析引擎的内部实现", "第一次使用：从 Demo 到本地录音"],
   },
+  "zh-Hant": {
+    heading: "從一段錄音，到有依據的判斷。",
+    category: "使用與技術",
+    titles: ["讀懂信號：響度、峰值與頻譜", "即時音訊分析引擎的內部實作", "第一次使用：從 Demo 到本機錄音"],
+  },
   ja: {
     heading: "録音を、判断の根拠に。",
     category: "実践と技術",
@@ -33,14 +39,13 @@ const labels = {
 export default function ReadingLinks() {
   const { locale } = useCopy();
   const text = labels[locale];
-  const language = locale === "zh-CN" ? "zh-Hans" : locale;
   return (
     <section className="section-shell reading-section">
       <p className="eyebrow">{text.category}</p>
       <h2>{text.heading}</h2>
       <div className="reading-links">
         {articles.map((slug, index) => (
-          <a href={`https://monoware.app/blog/${slug}?lang=${language}`} key={slug}>
+          <a href={monowareUrl(locale, `/blog/${slug}`)} key={slug}>
             <span className="reading-number">0{index + 1}</span>
             <h3>{text.titles[index]}</h3>
             <ArrowUpRight size={22} aria-hidden="true" />

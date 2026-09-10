@@ -19,6 +19,15 @@ export const measurementPrivacy: Record<Locale, PrivacySectionCopy> = {
       "如果你选择 iCloud Drive 或其他文件提供方，导出文件将由该提供方按其政策处理。SignalMetric 不会自行向 Monoware 上传测量报告。",
     ],
   },
+  "zh-Hant": {
+    id: "measurements",
+    title: "測量儲存與匯出",
+    paragraphs: [
+      "在支援儲存測量的版本中，已儲存的讀數、頻譜、測量條件及你填寫的備註會保留在 App 的本機私有儲存空間，直到你刪除它們或移除 App。儲存測量不會上傳資料，也不會建立錄音。",
+      "只有你主動匯出時，報告才會寫入你選擇的位置。報告不會自動包含音訊取樣、來源檔案路徑或裝置識別碼。分享前請檢查你主動填寫的名稱與備註。",
+      "如果你選擇 iCloud Drive 或其他檔案提供者，匯出檔案將由該提供者依其政策處理。SignalMetric 不會自行向 Monoware 上傳測量報告。",
+    ],
+  },
   ja: {
     id: "measurements",
     title: "測定の保存と書き出し",

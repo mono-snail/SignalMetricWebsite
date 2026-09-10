@@ -1,4 +1,4 @@
-export const locales = ["en", "zh-CN", "ja", "ko"] as const;
+export const locales = ["en", "zh-CN", "zh-Hant", "ja", "ko"] as const;
 
 export type Locale = (typeof locales)[number];
 
@@ -48,11 +48,19 @@ export interface SiteCopy {
     measurements: string;
     privacy: string;
     support: string;
+    moreApps: string;
     menu: string;
     close: string;
   };
   common: {
     skipContent: string;
+    tagline: string;
+    primaryNavigation: string;
+    mobileNavigation: string;
+    technicalSpecification: string;
+    metricGroups: string;
+    privacySections: string;
+    appearance: string;
     language: string;
     clearSearch: string;
     appStore: string;
@@ -86,6 +94,9 @@ export interface SiteCopy {
     themesTitle: string;
     themesLead: string;
     themeNames: string[];
+    portfolioEyebrow: string;
+    portfolioTitle: string;
+    portfolioLead: string;
     ctaTitle: string;
     ctaLead: string;
   };
@@ -98,6 +109,7 @@ export interface SiteCopy {
     searchPlaceholder: string;
     allGroups: string;
     noResults: string;
+    summaryLabel: string;
     window: string;
     howToRead: string;
     limit: string;
@@ -112,6 +124,15 @@ export interface SiteCopy {
       spectrumDescription: string;
       zcrTitle: string;
       zcrDescription: string;
+      headroomLabel: string;
+      gatedSessionLabel: string;
+      averageLoudnessLabel: string;
+      peakLabel: string;
+      dynamicsLabel: string;
+      centroidLabel: string;
+      bandwidthLabel: string;
+      zeroCrossingLabel: string;
+      secondsShort: string;
     };
   };
   support: {
@@ -119,6 +140,7 @@ export interface SiteCopy {
     title: string;
     lead: string;
     faqTitle: string;
+    directContact: string;
     faqs: FaqCopy[];
     formEyebrow: string;
     formTitle: string;
@@ -160,6 +182,7 @@ export interface SiteCopy {
     boundary: string;
     contact: string;
     rights: string;
+    principles: string;
   };
   notFound: {
     eyebrow: string;

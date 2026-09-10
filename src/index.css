@@ -308,6 +308,13 @@ h3 {
   font-weight: 700;
 }
 
+.desktop-nav .external-nav-link,
+.mobile-nav .external-nav-link {
+  display: inline-flex;
+  gap: 0.35rem;
+  align-items: center;
+}
+
 .desktop-nav a::after {
   position: absolute;
   right: 0;
@@ -1780,6 +1787,58 @@ h3 {
   font-family: "SFMono-Regular", monospace;
 }
 
+.portfolio-bridge {
+  border-block: 1px solid var(--line);
+  background: var(--surface);
+}
+
+.portfolio-bridge-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(22rem, 0.85fr);
+  gap: 5rem;
+  align-items: center;
+  padding-block: 4.5rem;
+}
+
+.portfolio-bridge-copy h2 {
+  max-width: 20ch;
+  margin-bottom: 1rem;
+  font-size: clamp(1.8rem, 3vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: 0;
+}
+
+.portfolio-bridge-copy > p:last-child {
+  max-width: 42rem;
+  margin-bottom: 0;
+  color: var(--muted-strong);
+  font-size: 0.9rem;
+  line-height: 1.75;
+}
+
+.portfolio-bridge-action {
+  display: grid;
+  gap: 1.5rem;
+  justify-items: end;
+}
+
+.portfolio-product-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  justify-content: flex-end;
+  color: var(--muted);
+  font-family: "SFMono-Regular", "Cascadia Mono", monospace;
+  font-size: 0.62rem;
+  font-weight: 800;
+}
+
+.portfolio-product-list span::before {
+  margin-right: 0.45rem;
+  color: var(--signal);
+  content: "/";
+}
+
 @media (max-width: 760px) {
   .reading-links { grid-template-columns: 1fr; gap: 0; }
   .reading-section h2 { font-size: 1.5rem; }
@@ -2129,6 +2188,19 @@ h3 {
     gap: 4rem;
   }
 
+  .portfolio-bridge-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .portfolio-bridge-action {
+    justify-items: start;
+  }
+
+  .portfolio-product-list {
+    justify-content: flex-start;
+  }
+
   .policy-layout {
     grid-template-columns: 1fr;
   }
@@ -2282,6 +2354,14 @@ h3 {
 
   .final-cta {
     padding-block: 7rem;
+  }
+
+  .portfolio-bridge-grid {
+    padding-block: 3.5rem;
+  }
+
+  .portfolio-bridge-action .button {
+    width: 100%;
   }
 
   .measurement-boundary {

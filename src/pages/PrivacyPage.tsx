@@ -30,7 +30,7 @@ export default function PrivacyPage() {
         <aside className="policy-nav">
           <LockKeyhole size={22} aria-hidden="true" />
           <strong>SIGNAL / METRIC</strong>
-          <nav aria-label="Privacy policy sections">
+          <nav aria-label={copy.common.privacySections}>
             {sections.map((section, index) => (
               <a href={`#${section.id}`} key={section.id}>
                 <span>{String(index + 1).padStart(2, "0")}</span>

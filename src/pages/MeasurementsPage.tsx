@@ -45,7 +45,7 @@ export default function MeasurementsPage() {
 
       <section className="section-shell glossary-section">
         <div className="glossary-intro">
-          <span>31 READINGS · 6 GROUPS</span>
+          <span>{copy.measurements.summaryLabel}</span>
           <p>{copy.common.digitalNotSpl}</p>
         </div>
         <MetricGlossary />

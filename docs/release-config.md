@@ -40,7 +40,7 @@ Associate `signalmetric.monoware.app` only after the first `*.pages.dev`
 production deployment succeeds.
 
 The build uses React server rendering and an HTML parser to generate all four
-routes in English, `/zh-CN/`, `/ja/`, and `/ko/`: 16 complete pages with unique
+routes in English, `/zh-CN/`, `/zh-Hant/`, `/ja/`, and `/ko/`: 20 complete pages with unique
 metadata, canonical URLs, reciprocal language alternatives and a sitemap.
 The static `404.html` prevents unknown URLs from becoming soft-404 copies.
 Legacy `?lang=` links continue to work and normalize to locale paths.
@@ -56,7 +56,8 @@ npx playwright install chromium
 node scripts/verify-browser.mjs
 ```
 
-The browser gate checks 390px and 1440px layouts, four languages, navigation,
-legacy links, search and privacy. It does not submit the support form.
+The browser gate checks 390px and 1440px layouts, five languages, store and
+MonoWare portfolio links, navigation, legacy links, search and privacy. It does
+not submit the support form.
 After pushing, verify the production domain's HTML and assets. A successful
 Git push alone is not deployment confirmation.

@@ -1,5 +1,7 @@
 import {
   ArrowRight,
+  ArrowUpRight,
+  Boxes,
   Check,
   FileAudio,
   MessageSquareText,
@@ -11,11 +13,11 @@ import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
 import { Link } from "@/routing/router";
-import { appStoreUrl } from "@/content/site";
+import { appStoreUrl, monowareProductsUrl } from "@/content/site";
 import ReadingLinks from "@/components/ReadingLinks";
 
 export default function HomePage() {
-  const { copy } = useCopy();
+  const { copy, locale } = useCopy();
   const localizedPath = useLocalizedPath();
   usePageMetadata("home");
 
@@ -73,7 +75,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="proof-rail" aria-label="Technical specification">
+      <section className="proof-rail" aria-label={copy.common.technicalSpecification}>
         <div className="section-shell proof-grid">
           {copy.home.proof.map((item) => (
             <div key={item.label} className="proof-item">
@@ -192,7 +194,7 @@ export default function HomePage() {
               <figure key={image} className={`theme-card theme-${index}`}>
                 <img
                   src={image}
-                  alt={`${copy.home.themeNames[index]} SignalMetric appearance`}
+                  alt={`${copy.home.themeNames[index]} · SignalMetric ${copy.common.appearance}`}
                   loading="lazy"
                   width={738}
                   height={1600}
@@ -210,6 +212,31 @@ export default function HomePage() {
       </section>
 
       <ReadingLinks />
+
+      <section className="portfolio-bridge">
+        <div className="section-shell portfolio-bridge-grid">
+          <div className="portfolio-bridge-copy">
+            <p className="eyebrow">{copy.home.portfolioEyebrow}</p>
+            <h2>{copy.home.portfolioTitle}</h2>
+            <p>{copy.home.portfolioLead}</p>
+          </div>
+          <div className="portfolio-bridge-action">
+            <div className="portfolio-product-list" aria-hidden="true">
+              {["Senvra", "MonoProxy", "MonoPump", "MonoNight", "MonoTools"].map(
+                (product) => <span key={product}>{product}</span>,
+              )}
+            </div>
+            <a
+              className="button button-secondary"
+              href={monowareProductsUrl(locale)}
+            >
+              <Boxes size={17} aria-hidden="true" />
+              {copy.nav.moreApps}
+              <ArrowUpRight size={16} aria-hidden="true" />
+            </a>
+          </div>
+        </div>
+      </section>
 
       <section className="section-shell final-cta">
         <span className="cta-signal" aria-hidden="true" />

@@ -4,6 +4,7 @@ import { chromium } from "playwright";
 
 const base = process.env.SIGNALMETRIC_TEST_URL || "http://127.0.0.1:4317";
 const output = process.env.SIGNALMETRIC_SCREENSHOTS || "/tmp/SignalMetricWebsiteShots";
+const languageTag = (locale) => locale === "zh-CN" ? "zh-Hans" : locale;
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch({
   channel: process.env.PLAYWRIGHT_CHANNEL,
@@ -15,7 +16,7 @@ try {
     const page = await context.newPage();
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
-    for (const locale of ["en", "zh-CN", "ja", "ko"]) {
+    for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
       const path = locale === "en" ? "/" : `/${locale}/`;
       await page.goto(`${base}${path}`, { waitUntil: "networkidle" });
       await page.locator(".hero-device img").evaluate((image) => image.decode());
@@ -28,23 +29,28 @@ try {
           const url = new URL(link.href);
           return url.hostname === "apps.apple.com" && url.pathname.endsWith("/id6797239928");
         }).length,
+        portfolioLinks: [...document.querySelectorAll("a[href]")].filter((link) => {
+          const url = new URL(link.href);
+          return url.hostname === "monoware.app" && url.hash === "#products";
+        }).length,
         articles: document.querySelectorAll(".reading-links a").length,
       }));
-      assert.equal(state.lang, locale === "zh-CN" ? "zh-Hans" : locale);
+      assert.equal(state.lang, languageTag(locale));
       assert.equal(state.heading, "SignalMetric");
       assert.ok(state.headingFits && state.bodyFits, `Overflow at ${viewport.width}: ${locale}`);
       assert.ok(state.storeLinks >= 4);
+      assert.ok(state.portfolioLinks >= 3);
       assert.equal(state.articles, 3);
       await page.screenshot({ path: `${output}/${viewport.width}-${locale}.png` });
     }
     await page.goto(`${base}/`);
     if (viewport.width < 760) {
       await page.getByRole("button", { name: "Open navigation" }).click();
-      await page.locator(".mobile-languages").getByRole("button", { name: "日本語" }).click();
+      await page.locator(".mobile-languages").getByRole("button", { name: "繁體中文" }).click();
     } else {
-      await page.getByRole("combobox", { name: "Language" }).selectOption("ja");
+      await page.getByRole("combobox", { name: "Language" }).selectOption("zh-Hant");
     }
-    await page.waitForURL("**/ja/");
+    await page.waitForURL("**/zh-Hant/");
     await page.goBack();
     await page.waitForURL(`${base}/`);
     assert.equal(await page.locator("html").getAttribute("lang"), "en");
@@ -57,7 +63,7 @@ try {
     assert.equal(await page.locator("section#measurements").count(), 1);
     assert.deepEqual(errors, [], `Browser exceptions at ${viewport.width}`);
     await context.close();
-    console.log(`Verified ${viewport.width}px: four languages, store links, navigation, legacy URLs, search, privacy.`);
+    console.log(`Verified ${viewport.width}px: five languages, store and portfolio links, navigation, legacy URLs, search, privacy.`);
   }
 } finally {
   await browser.close();

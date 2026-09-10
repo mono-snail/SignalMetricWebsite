@@ -71,7 +71,11 @@ export default function MetricGlossary() {
           )}
         </label>
 
-        <div className="filter-rail" role="group" aria-label="Metric groups">
+        <div
+          className="filter-rail"
+          role="group"
+          aria-label={copy.common.metricGroups}
+        >
           <button
             type="button"
             className={selectedGroup === "all" ? "active" : ""}

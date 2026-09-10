@@ -20,6 +20,12 @@ describe("localizePath", () => {
     );
   });
 
+  it("uses the traditional Chinese locale route", () => {
+    expect(localizePath("/zh-CN/measurements/", "zh-Hant")).toBe(
+      "/zh-Hant/measurements/",
+    );
+  });
+
   it("removes the locale for English", () => {
     expect(localizePath("/zh-CN/privacy/?lang=zh-CN", "en")).toBe("/privacy/");
   });

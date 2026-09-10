@@ -36,7 +36,7 @@ export default function SupportPage() {
             ))}
           </div>
           <div className="direct-contact">
-            <span>DIRECT CONTACT</span>
+            <span>{copy.support.directContact}</span>
             <a href="mailto:support@monoware.app">support@monoware.app</a>
           </div>
         </div>
