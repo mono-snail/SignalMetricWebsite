@@ -11,7 +11,7 @@ SignalMetric 的公开营销、测量指南、支持与隐私网站。
 
 默认语言为英文，通过 `/zh-CN/`、`/zh-Hant/`、`/ja/`、`/ko/` 提供简体中文、繁体中文、日文和韩文。旧的 `?lang=` 链接仍然兼容。
 
-顶部导航、移动菜单、首页产品矩阵区和页脚均提供 MonoWare 主站产品入口，并按当前语言跳转到 `https://monoware.app/#products`。
+首页首屏直接展示 `www.monoware.app` 主站入口；顶部导航、移动菜单和页脚也提供主站回链。下方产品矩阵区继续跳转到 `https://monoware.app/#products` 浏览其他 App。
 
 ## 本地开发
 

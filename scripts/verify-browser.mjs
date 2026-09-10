@@ -33,13 +33,30 @@ try {
           const url = new URL(link.href);
           return url.hostname === "monoware.app" && url.hash === "#products";
         }).length,
+        mainSiteLinks: [...document.querySelectorAll("a[href]")].filter((link) => {
+          const url = new URL(link.href);
+          return url.hostname === "monoware.app" && url.pathname === "/" && !url.hash;
+        }).length,
+        relay: (() => {
+          const link = document.querySelector(".main-site-relay");
+          if (!link) return null;
+          const rect = link.getBoundingClientRect();
+          return {
+            text: link.textContent.trim(),
+            href: link.href,
+            inFirstViewport: rect.top >= 0 && rect.bottom <= innerHeight,
+          };
+        })(),
         articles: document.querySelectorAll(".reading-links a").length,
       }));
       assert.equal(state.lang, languageTag(locale));
       assert.equal(state.heading, "SignalMetric");
       assert.ok(state.headingFits && state.bodyFits, `Overflow at ${viewport.width}: ${locale}`);
       assert.ok(state.storeLinks >= 4);
-      assert.ok(state.portfolioLinks >= 3);
+      assert.ok(state.portfolioLinks >= 1);
+      assert.ok(state.mainSiteLinks >= 3);
+      assert.ok(state.relay?.text.includes("www.monoware.app"));
+      assert.ok(state.relay?.inFirstViewport);
       assert.equal(state.articles, 3);
       await page.screenshot({ path: `${output}/${viewport.width}-${locale}.png` });
     }

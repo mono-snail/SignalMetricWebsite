@@ -33,5 +33,8 @@ export function monowareUrl(locale: Locale, path: string): string {
   return url.href;
 }
 
+export const monowareHomeUrl = (locale: Locale) =>
+  monowareUrl(locale, "/");
+
 export const monowareProductsUrl = (locale: Locale) =>
   monowareUrl(locale, "/#products");

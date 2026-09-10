@@ -6,7 +6,7 @@ import { useCopy, useLocaleStore } from "@/i18n/store";
 import { locales, type Locale } from "@/i18n/types";
 import { Link, NavLink } from "@/routing/router";
 import { useLocation } from "@/routing/routerContext";
-import { appStoreUrl, monowareProductsUrl } from "@/content/site";
+import { appStoreUrl, monowareHomeUrl } from "@/content/site";
 
 interface AppFrameProps {
   children: ReactNode;
@@ -72,8 +72,8 @@ export default function AppFrame({ children }: AppFrameProps) {
                 </NavLink>
               ),
             )}
-            <a className="external-nav-link" href={monowareProductsUrl(locale)}>
-              {copy.nav.moreApps}
+            <a className="external-nav-link" href={monowareHomeUrl(locale)}>
+              {copy.nav.mainSite}
               <ArrowUpRight size={13} aria-hidden="true" />
             </a>
           </nav>
@@ -126,8 +126,8 @@ export default function AppFrame({ children }: AppFrameProps) {
                 </NavLink>
               ),
             )}
-            <a className="external-nav-link" href={monowareProductsUrl(locale)}>
-              {copy.nav.moreApps}
+            <a className="external-nav-link" href={monowareHomeUrl(locale)}>
+              {copy.nav.mainSite}
               <ArrowUpRight size={15} aria-hidden="true" />
             </a>
             <div
@@ -164,7 +164,7 @@ export default function AppFrame({ children }: AppFrameProps) {
             </Link>
             <Link to={localizedPath("/support/")}>{copy.nav.support}</Link>
             <Link to={localizedPath("/privacy/")}>{copy.nav.privacy}</Link>
-            <a href={monowareProductsUrl(locale)}>{copy.nav.moreApps}</a>
+            <a href={monowareHomeUrl(locale)}>{copy.nav.mainSite}</a>
           </div>
           <div className="footer-legal">
             <p>{copy.footer.boundary}</p>

@@ -48,6 +48,7 @@ export interface SiteCopy {
     measurements: string;
     privacy: string;
     support: string;
+    mainSite: string;
     moreApps: string;
     menu: string;
     close: string;

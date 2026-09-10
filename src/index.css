@@ -418,6 +418,69 @@ h3 {
   max-width: 37rem;
 }
 
+.main-site-relay {
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  gap: 0.65rem;
+  align-items: center;
+  max-width: 100%;
+  padding: 0 0 0.55rem;
+  margin-bottom: 1.35rem;
+  color: var(--text);
+  border-bottom: 1px solid var(--line);
+  transition:
+    color 160ms ease,
+    border-color 160ms ease;
+}
+
+.main-site-relay-mark {
+  display: grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  color: var(--signal);
+  border: 1px solid rgba(81, 223, 208, 0.28);
+  background: var(--signal-soft);
+  place-items: center;
+}
+
+.main-site-relay-copy {
+  display: grid;
+  gap: 0.12rem;
+  min-width: 0;
+}
+
+.main-site-relay small,
+.main-site-relay strong {
+  overflow-wrap: anywhere;
+  font-family: "SFMono-Regular", "Cascadia Mono", monospace;
+  letter-spacing: 0;
+}
+
+.main-site-relay small {
+  color: var(--signal);
+  font-size: 0.54rem;
+  font-weight: 850;
+  text-transform: uppercase;
+}
+
+.main-site-relay strong {
+  font-size: 0.72rem;
+}
+
+.main-site-relay > svg {
+  color: var(--muted);
+  transition: transform 160ms ease;
+}
+
+.main-site-relay:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.main-site-relay:hover > svg {
+  transform: translate(0.12rem, -0.12rem);
+}
+
 .hero h1,
 .page-hero h1,
 .not-found h1 {

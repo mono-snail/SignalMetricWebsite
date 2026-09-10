@@ -27,6 +27,11 @@ function isPortfolioLink(node) {
   const url = new URL(attr(node, "href") ?? "", "https://signalmetric.monoware.app");
   return url.hostname === "monoware.app" && url.hash === "#products";
 }
+function isMainSiteLink(node) {
+  if (node.tagName !== "a") return false;
+  const url = new URL(attr(node, "href") ?? "", "https://signalmetric.monoware.app");
+  return url.hostname === "monoware.app" && url.pathname === "/" && !url.hash;
+}
 const languageTag = (locale) => locale === "zh-CN" ? "zh-Hans" : locale;
 let count = 0;
 for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
@@ -43,7 +48,7 @@ for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
     assert.equal(nodes((node) => attr(node, "hreflang")).length, 6);
     const store = nodes(isStoreLink);
     assert.ok(store.length >= 2, `Missing download path: ${path}`);
-    assert.ok(nodes(isPortfolioLink).length >= 2, `Missing portfolio path: ${path}`);
+    assert.ok(nodes(isMainSiteLink).length >= 2, `Missing main-site path: ${path}`);
     const structured = nodes((node) => attr(node, "id") === "seo-structured-data");
     assert.equal(structured.length, 1);
     assert.ok(JSON.parse(text(structured[0]))["@graph"].length >= 4);
@@ -55,6 +60,8 @@ for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
       assert.ok(nodes((node) => node.tagName === "section" && attr(node, "id") === "measurements").length);
     }
     if (!page) {
+      assert.equal(nodes((node) => attr(node, "class") === "main-site-relay").length, 1);
+      assert.ok(nodes(isPortfolioLink).length >= 1, `Missing portfolio path: ${path}`);
       assert.equal(nodes((node) => node.tagName === "a" &&
         attr(node, "href")?.startsWith("https://monoware.app/blog/")).length, 3);
     }

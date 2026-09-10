@@ -4,6 +4,7 @@ import {
   Boxes,
   Check,
   FileAudio,
+  Globe2,
   MessageSquareText,
   Mic,
   ShieldCheck,
@@ -13,7 +14,11 @@ import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
 import { Link } from "@/routing/router";
-import { appStoreUrl, monowareProductsUrl } from "@/content/site";
+import {
+  appStoreUrl,
+  monowareHomeUrl,
+  monowareProductsUrl,
+} from "@/content/site";
 import ReadingLinks from "@/components/ReadingLinks";
 
 export default function HomePage() {
@@ -33,6 +38,20 @@ export default function HomePage() {
     <>
       <section className="hero section-shell">
         <div className="hero-copy reveal">
+          <a
+            className="main-site-relay"
+            href={monowareHomeUrl(locale)}
+            aria-label={`${copy.nav.mainSite}: www.monoware.app`}
+          >
+            <span className="main-site-relay-mark">
+              <Globe2 size={15} aria-hidden="true" />
+            </span>
+            <span className="main-site-relay-copy">
+              <small>{copy.nav.mainSite}</small>
+              <strong>www.monoware.app</strong>
+            </span>
+            <ArrowUpRight size={15} aria-hidden="true" />
+          </a>
           <p className="eyebrow">{copy.home.heroEyebrow}</p>
           <h1>{copy.home.heroTitle}</h1>
           <p className="hero-lead">{copy.home.heroLead}</p>
