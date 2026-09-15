@@ -11,7 +11,7 @@ SignalMetric 的公开营销、测量指南、支持与隐私网站。
 
 默认语言为英文，通过 `/zh-CN/`、`/zh-Hant/`、`/ja/`、`/ko/` 提供简体中文、繁体中文、日文和韩文。旧的 `?lang=` 链接仍然兼容。
 
-首页现已按 SignalMetric 2.0 的实际工作流组织：发布前检查、环境噪声、录制前检查和专业仪表。页面截图来自当前 iOS 模拟器构建，源文件位于 `public/images/v2/`。
+首页现已按 SignalMetric 2.0 的实际工作流组织：发布前检查、环境噪声、录制前检查和专业仪表。页面截图来自当前 iOS 模拟器构建，源文件位于 `public/images/v2/`；各语言首页使用 `public/images/v2/<locale>/` 下的本地化截图。
 
 首屏直接展示 `www.monoware.app` 主站入口；顶部导航、移动菜单和页脚也提供主站回链。下方产品矩阵区继续跳转到 `https://monoware.app/#products` 浏览其他 App。Android 入口仅展示“即将推出”状态，在公开商店页面就绪前不配置 URL。
 

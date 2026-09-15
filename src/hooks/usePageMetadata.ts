@@ -7,6 +7,18 @@ import { locales, type Locale } from "@/i18n/types";
 
 export type PageKind = "home" | "measurements" | "support" | "privacy" | "notFound";
 
+const imageLocalePath: Record<Locale, string> = {
+  en: "en",
+  "zh-CN": "zh-CN",
+  "zh-Hant": "zh-Hant",
+  ja: "ja",
+  ko: "ko",
+};
+
+function homeScreenshotUrl(locale: Locale) {
+  return `${publicSiteUrl}/images/v2/${imageLocalePath[locale]}/home.jpg`;
+}
+
 export const usePageMetadata = (page: PageKind) => {
   const { copy, locale } = useCopy();
   const location = useLocation();
@@ -149,7 +161,7 @@ export function buildStructuredData(
       mainEntityOfPage: { "@id": `${publicSiteUrl}/` },
       description,
       image: `${publicSiteUrl}/social-card.png`,
-      screenshot: `${publicSiteUrl}/images/v2/home.jpg`,
+      screenshot: homeScreenshotUrl(locale),
       downloadUrl: appStoreUrl,
       installUrl: appStoreUrl,
       featureList: [

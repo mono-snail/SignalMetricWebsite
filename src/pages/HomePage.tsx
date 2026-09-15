@@ -24,6 +24,7 @@ import {
 import { useLocalizedPath } from "@/hooks/useLocalizedPath";
 import { usePageMetadata } from "@/hooks/usePageMetadata";
 import { useCopy } from "@/i18n/store";
+import type { Locale } from "@/i18n/types";
 import { Link } from "@/routing/router";
 
 const workflowIcons = {
@@ -32,17 +33,36 @@ const workflowIcons = {
   prepare: Mic2,
 };
 
+const workflowImages: Record<keyof typeof workflowIcons, string> = {
+  publish: "report.jpg",
+  noise: "noise.jpg",
+  prepare: "setup.jpg",
+};
+
+const imageLocalePath: Record<Locale, string> = {
+  en: "en",
+  "zh-CN": "zh-CN",
+  "zh-Hant": "zh-Hant",
+  ja: "ja",
+  ko: "ko",
+};
+
+function v2Image(locale: Locale, fileName: string) {
+  return `/images/v2/${imageLocalePath[locale]}/${fileName}`;
+}
+
 export default function HomePage() {
   const { copy, locale } = useCopy();
   const content = homeV2[locale];
   const localizedPath = useLocalizedPath();
+  const screenshot = (fileName: string) => v2Image(locale, fileName);
   usePageMetadata("home");
 
   const themeImages = [
-    { image: "/images/v2/instrument-studio.jpg", name: copy.home.themeNames[0] },
-    { image: "/images/v2/instrument-paper.jpg", name: copy.home.themeNames[1] },
-    { image: "/images/v2/instrument-pulse.jpg", name: copy.home.themeNames[4] },
-    { image: "/images/v2/instrument-mono.jpg", name: copy.home.themeNames[5] },
+    { image: screenshot("instrument-studio.jpg"), name: copy.home.themeNames[0] },
+    { image: screenshot("instrument-paper.jpg"), name: copy.home.themeNames[1] },
+    { image: screenshot("instrument-pulse.jpg"), name: copy.home.themeNames[4] },
+    { image: screenshot("instrument-mono.jpg"), name: copy.home.themeNames[5] },
   ];
   const orderedWorkflows = (["noise", "prepare", "publish"] as const).map(
     (id) => content.workflows.find((workflow) => workflow.id === id)!,
@@ -105,7 +125,7 @@ export default function HomePage() {
         <div className="hero-v2-visual reveal reveal-delay">
           <div className="hero-v2-grid" aria-hidden="true" />
           <DeviceShot
-            src="/images/v2/home.jpg"
+            src={screenshot("home.jpg")}
             alt={content.heroImageAlt}
             priority
             className="hero-v2-device"
@@ -140,7 +160,7 @@ export default function HomePage() {
               <span />
             </div>
             <DeviceShot
-              src="/images/v2/instrument-studio.jpg"
+              src={screenshot("instrument-studio.jpg")}
               alt={content.instrumentImageAlt}
               priority
             />
@@ -195,7 +215,11 @@ export default function HomePage() {
                   </ul>
                 </div>
                 <div className="workflow-visual-v2">
-                  <DeviceShot src={workflow.image} alt={workflow.alt} priority />
+                  <DeviceShot
+                    src={screenshot(workflowImages[workflow.id])}
+                    alt={workflow.alt}
+                    priority
+                  />
                 </div>
               </article>
             );
