@@ -19,7 +19,7 @@ try {
     for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
       const path = locale === "en" ? "/" : `/${locale}/`;
       await page.goto(`${base}${path}`, { waitUntil: "networkidle" });
-      await page.locator(".hero-device img").evaluate((image) => image.decode());
+      await page.locator(".hero-v2-device img").evaluate((image) => image.decode());
       const state = await page.evaluate(() => ({
         lang: document.documentElement.lang,
         heading: document.querySelector("h1")?.textContent,
@@ -29,6 +29,13 @@ try {
           const url = new URL(link.href);
           return url.hostname === "apps.apple.com" && url.pathname.endsWith("/id6797239928");
         }).length,
+        androidLinks: [...document.querySelectorAll("a[href]")].filter((link) => {
+          const url = new URL(link.href);
+          return url.hostname === "play.google.com";
+        }).length,
+        androidPending: document.querySelectorAll(
+          ".platform-button-pending[aria-disabled='true']:not(a)",
+        ).length,
         portfolioLinks: [...document.querySelectorAll("a[href]")].filter((link) => {
           const url = new URL(link.href);
           return url.hostname === "monoware.app" && url.hash === "#products";
@@ -53,6 +60,8 @@ try {
       assert.equal(state.heading, "SignalMetric");
       assert.ok(state.headingFits && state.bodyFits, `Overflow at ${viewport.width}: ${locale}`);
       assert.ok(state.storeLinks >= 4);
+      assert.equal(state.androidLinks, 0);
+      assert.ok(state.androidPending >= 2);
       assert.ok(state.portfolioLinks >= 1);
       assert.ok(state.mainSiteLinks >= 3);
       assert.ok(state.relay?.text.includes("www.monoware.app"));

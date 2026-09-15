@@ -4,9 +4,9 @@ export const copy: Record<Locale, SiteCopy> = {
   en: {
     languageName: "English",
     meta: {
-      homeTitle: "SignalMetric — Audio Analyzer for iPhone and iPad",
+      homeTitle: "SignalMetric 2.0 — Private Audio Checks for Creators",
       homeDescription:
-        "Check loudness, peaks and frequencies from your microphone or local recordings on iPhone and iPad. One purchase. No ads or subscriptions.",
+        "Check final exports, prepare a recording space, compare revisions and inspect professional audio measurements privately on iPhone and iPad.",
       measurementsTitle: "Measurement Guide — SignalMetric",
       measurementsDescription:
         "Understand every SignalMetric reading, from dBFS and LUFS to True Peak, dynamics, spectrum and signal integrity.",
@@ -395,9 +395,9 @@ export const copy: Record<Locale, SiteCopy> = {
   "zh-CN": {
     languageName: "简体中文",
     meta: {
-      homeTitle: "SignalMetric — iPhone 与 iPad 音频分析仪",
+      homeTitle: "SignalMetric 2.0 — 创作者的私密音频检查工具",
       homeDescription:
-        "在 iPhone 与 iPad 上检查配音、播客和录音的响度、峰值与频谱。本地分析，一次买断，无广告、无订阅。",
+        "在 iPhone 与 iPad 上检查成片、准备录音环境、对比修改版本并查看专业音频测量，所有处理均在本地完成。",
       measurementsTitle: "测量指南 — SignalMetric",
       measurementsDescription:
         "理解 SignalMetric 的每项读数，从 dBFS、LUFS 到 True Peak、动态、频谱与信号完整性。",
@@ -775,9 +775,9 @@ export const copy: Record<Locale, SiteCopy> = {
   "zh-Hant": {
     languageName: "繁體中文",
     meta: {
-      homeTitle: "SignalMetric — iPhone 與 iPad 音訊分析儀",
+      homeTitle: "SignalMetric 2.0 — 創作者的私密音訊檢查工具",
       homeDescription:
-        "在 iPhone 與 iPad 上檢查配音、播客和錄音的響度、峰值與頻譜。本機分析，一次買斷，無廣告、無訂閱。",
+        "在 iPhone 與 iPad 上檢查成片、準備錄音環境、比較修改版本並查看專業音訊測量，所有處理均在本機完成。",
       measurementsTitle: "測量指南 — SignalMetric",
       measurementsDescription:
         "理解 SignalMetric 的每項讀數，從 dBFS、LUFS 到 True Peak、動態、頻譜與信號完整性。",
@@ -1155,9 +1155,9 @@ export const copy: Record<Locale, SiteCopy> = {
   ja: {
     languageName: "日本語",
     meta: {
-      homeTitle: "SignalMetric — iPhone・iPadの音声解析",
+      homeTitle: "SignalMetric 2.0 — クリエイター向け音声チェック",
       homeDescription:
-        "LUFS、True Peak、FFT、ダイナミクス、波形、スペクトル履歴をiPhone上でプライベートに解析。",
+        "最終書き出しの確認、録音環境の準備、修正版の比較、プロ向け音声測定をiPhoneとiPad上でプライベートに実行。",
       measurementsTitle: "測定ガイド — SignalMetric",
       measurementsDescription:
         "dBFS、LUFS、True Peak、ダイナミクス、スペクトル、信号品質の読み方を解説します。",
@@ -1543,9 +1543,9 @@ export const copy: Record<Locale, SiteCopy> = {
   ko: {
     languageName: "한국어",
     meta: {
-      homeTitle: "SignalMetric — iPhone 및 iPad 오디오 분석",
+      homeTitle: "SignalMetric 2.0 — 크리에이터를 위한 오디오 점검",
       homeDescription:
-        "LUFS, True Peak, FFT 스펙트럼, 다이내믹, 파형과 스펙트럼 기록을 iPhone에서 비공개로 분석하세요.",
+        "최종 출력 점검, 녹음 환경 준비, 수정본 비교, 전문 오디오 측정을 iPhone과 iPad에서 비공개로 진행하세요.",
       measurementsTitle: "측정 가이드 — SignalMetric",
       measurementsDescription:
         "dBFS와 LUFS부터 True Peak, 다이내믹, 스펙트럼, 신호 무결성까지 모든 수치를 설명합니다.",

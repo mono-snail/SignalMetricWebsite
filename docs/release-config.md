@@ -30,7 +30,9 @@ VITE_APP_STORE_URL=https://apps.apple.com/app/signalmetric/id6797239928
 
 `VITE_APP_STORE_URL` is optional: the real public store URL above is also the
 shared default in `src/content/site.ts`. A missing build variable never
-disables download links. No prices are embedded in structured data.
+disables download links. No prices are embedded in structured data. The Android
+edition intentionally has no URL or environment variable until its public store
+listing exists; the homepage renders a disabled availability state instead.
 
 ## Cloudflare Pages
 
@@ -56,8 +58,8 @@ npx playwright install chromium
 node scripts/verify-browser.mjs
 ```
 
-The browser gate checks 390px and 1440px layouts, five languages, store and
-MonoWare portfolio links, navigation, legacy links, search and privacy. It does
-not submit the support form.
+The browser gate checks 390px and 1440px layouts, five languages, iOS store and
+MonoWare portfolio links, the disabled Android state, navigation, legacy links,
+search and privacy. It does not submit the support form.
 After pushing, verify the production domain's HTML and assets. A successful
 Git push alone is not deployment confirmation.

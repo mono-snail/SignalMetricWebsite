@@ -32,6 +32,11 @@ function isMainSiteLink(node) {
   const url = new URL(attr(node, "href") ?? "", "https://signalmetric.monoware.app");
   return url.hostname === "monoware.app" && url.pathname === "/" && !url.hash;
 }
+function isAndroidLink(node) {
+  if (node.tagName !== "a") return false;
+  const url = new URL(attr(node, "href") ?? "", "https://signalmetric.monoware.app");
+  return url.hostname === "play.google.com";
+}
 const languageTag = (locale) => locale === "zh-CN" ? "zh-Hans" : locale;
 let count = 0;
 for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
@@ -62,6 +67,11 @@ for (const locale of ["en", "zh-CN", "zh-Hant", "ja", "ko"]) {
     if (!page) {
       assert.equal(nodes((node) => attr(node, "class") === "main-site-relay").length, 1);
       assert.ok(nodes(isPortfolioLink).length >= 1, `Missing portfolio path: ${path}`);
+      assert.equal(nodes(isAndroidLink).length, 0, `Unexpected Android download URL: ${path}`);
+      assert.ok(nodes((node) => node.tagName === "span" &&
+        attr(node, "class")?.includes("platform-button-pending") &&
+        attr(node, "aria-disabled") === "true").length >= 2,
+      `Missing disabled Android availability state: ${path}`);
       assert.equal(nodes((node) => node.tagName === "a" &&
         attr(node, "href")?.startsWith("https://monoware.app/blog/")).length, 3);
     }

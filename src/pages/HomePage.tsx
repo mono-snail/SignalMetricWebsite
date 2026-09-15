@@ -3,41 +3,52 @@ import {
   ArrowUpRight,
   Boxes,
   Check,
-  FileAudio,
+  Download,
+  FileCheck2,
+  Gauge,
   Globe2,
-  MessageSquareText,
-  Mic,
+  Headphones,
+  Mic2,
   ShieldCheck,
+  Smartphone,
+  Waves,
 } from "lucide-react";
 import DeviceShot from "@/components/DeviceShot";
-import { useLocalizedPath } from "@/hooks/useLocalizedPath";
-import { usePageMetadata } from "@/hooks/usePageMetadata";
-import { useCopy } from "@/i18n/store";
-import { Link } from "@/routing/router";
+import ReadingLinks from "@/components/ReadingLinks";
+import { homeV2 } from "@/content/homeV2";
 import {
   appStoreUrl,
   monowareHomeUrl,
   monowareProductsUrl,
 } from "@/content/site";
-import ReadingLinks from "@/components/ReadingLinks";
+import { useLocalizedPath } from "@/hooks/useLocalizedPath";
+import { usePageMetadata } from "@/hooks/usePageMetadata";
+import { useCopy } from "@/i18n/store";
+import { Link } from "@/routing/router";
+
+const workflowIcons = {
+  publish: FileCheck2,
+  noise: Waves,
+  prepare: Mic2,
+};
 
 export default function HomePage() {
   const { copy, locale } = useCopy();
+  const content = homeV2[locale];
   const localizedPath = useLocalizedPath();
   usePageMetadata("home");
 
-  const privacyIcons = [Mic, FileAudio, ShieldCheck, MessageSquareText];
   const themeImages = [
-    "/images/optimized/1.jpg",
-    "/images/optimized/5.jpg",
-    "/images/optimized/6.jpg",
-    "/images/optimized/7.jpg",
+    { image: "/images/v2/instrument-studio.jpg", name: copy.home.themeNames[0] },
+    { image: "/images/v2/instrument-paper.jpg", name: copy.home.themeNames[1] },
+    { image: "/images/v2/instrument-pulse.jpg", name: copy.home.themeNames[4] },
+    { image: "/images/v2/instrument-mono.jpg", name: copy.home.themeNames[5] },
   ];
 
   return (
     <>
-      <section className="hero section-shell">
-        <div className="hero-copy reveal">
+      <section className="hero-v2 section-shell">
+        <div className="hero-v2-copy reveal">
           <a
             className="main-site-relay"
             href={monowareHomeUrl(locale)}
@@ -52,52 +63,64 @@ export default function HomePage() {
             </span>
             <ArrowUpRight size={15} aria-hidden="true" />
           </a>
-          <p className="eyebrow">{copy.home.heroEyebrow}</p>
-          <h1>{copy.home.heroTitle}</h1>
-          <p className="hero-lead">{copy.home.heroLead}</p>
-          <div className="hero-actions">
-            <a className="button button-primary" href={appStoreUrl}>
-              {copy.common.appStore}
-              <ArrowRight size={17} aria-hidden="true" />
+
+          <h1>SignalMetric</h1>
+          <p className="hero-v2-lead">{content.heroLead}</p>
+
+          <div className="platform-actions" aria-label={content.availabilityTitle}>
+            <a className="platform-button platform-button-active" href={appStoreUrl}>
+              <span className="platform-button-icon">
+                <Download size={19} aria-hidden="true" />
+              </span>
+              <span>
+                <small>{content.appStoreStatus}</small>
+                <strong>{content.appStore}</strong>
+              </span>
+              <ArrowUpRight size={16} aria-hidden="true" />
             </a>
-            <Link
-              className="button button-secondary"
-              to={localizedPath("/measurements/")}
-            >
-              {copy.common.learnMeasurements}
-            </Link>
+            <span className="platform-button platform-button-pending" aria-disabled="true">
+              <span className="platform-button-icon">
+                <Smartphone size={19} aria-hidden="true" />
+              </span>
+              <span>
+                <small>{content.androidStatus}</small>
+                <strong>{content.android}</strong>
+              </span>
+            </span>
           </div>
-          <div className="trust-line">
+
+          <div className="hero-v2-foot">
             <ShieldCheck size={17} aria-hidden="true" />
-            <span>{copy.home.heroNote}</span>
+            <span>{content.heroNote}</span>
+            <Link to={localizedPath("/measurements/")}>
+              {content.guide}
+              <ArrowRight size={14} aria-hidden="true" />
+            </Link>
           </div>
         </div>
 
-        <div className="hero-visual reveal reveal-delay">
-          <div className="hero-readout" aria-hidden="true">
-            <span>RMS</span>
-            <strong>−18.7</strong>
-            <small>dBFS</small>
-            <i>LIVE</i>
-          </div>
-          <div className="signal-orbit" aria-hidden="true">
-            <span />
-            <span />
-            <span />
-          </div>
+        <div className="hero-v2-visual reveal reveal-delay">
+          <div className="hero-v2-grid" aria-hidden="true" />
           <DeviceShot
-            src="/images/optimized/1.jpg"
-            alt={copy.home.heroImageAlt}
+            src="/images/v2/home.jpg"
+            alt={content.heroImageAlt}
             priority
-            className="hero-device"
+            className="hero-v2-device"
           />
+          <div className="hero-v2-signal" aria-hidden="true">
+            <span>CHECK</span>
+            <i />
+            <span>PREPARE</span>
+            <i />
+            <span>MEASURE</span>
+          </div>
         </div>
       </section>
 
-      <section className="proof-rail" aria-label={copy.common.technicalSpecification}>
-        <div className="section-shell proof-grid">
-          {copy.home.proof.map((item) => (
-            <div key={item.label} className="proof-item">
+      <section className="proof-rail-v2" aria-label={copy.common.technicalSpecification}>
+        <div className="section-shell proof-grid-v2">
+          {content.proof.map((item) => (
+            <div key={item.label} className="proof-item-v2">
               <strong>{item.value}</strong>
               <span>{item.label}</span>
             </div>
@@ -105,128 +128,128 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-shell section-block" id="instruments">
-        <header className="section-heading">
-          <p className="eyebrow">{copy.home.instrumentsEyebrow}</p>
-          <h2>{copy.home.instrumentsTitle}</h2>
-          <p>{copy.home.instrumentsLead}</p>
+      <section className="section-shell workflow-section section-block" id="instruments">
+        <header className="section-heading-v2">
+          <h2>{content.workflowsTitle}</h2>
         </header>
 
-        <div className="instrument-stack">
-          {copy.home.instruments.map((instrument, index) => (
-            <article
-              className={`instrument-row ${index % 2 ? "instrument-row-reverse" : ""}`}
-              key={instrument.id}
-            >
-              <div className="instrument-copy">
-                <span className="instrument-index">
-                  0{index + 1} / {instrument.eyebrow}
-                </span>
-                <h3>{instrument.name}</h3>
-                <p>{instrument.description}</p>
-                <ul className="evidence-list">
-                  {instrument.evidence.map((evidence) => (
-                    <li key={evidence}>
-                      <Check size={14} aria-hidden="true" />
-                      {evidence}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="instrument-visual">
-                <div className="instrument-axis" aria-hidden="true">
-                  <span>−12</span>
-                  <span>−24</span>
-                  <span>−48</span>
-                  <span>−72</span>
-                </div>
-                <DeviceShot src={instrument.image} alt={instrument.alt} />
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="metric-section section-block">
-        <div className="section-shell">
-          <header className="section-heading section-heading-wide">
-            <div>
-              <p className="eyebrow">{copy.home.metricsEyebrow}</p>
-              <h2>{copy.home.metricsTitle}</h2>
-            </div>
-            <p>{copy.home.metricsLead}</p>
-          </header>
-
-          <div className="metric-group-grid">
-            {copy.home.metricGroups.map((group, index) => (
-              <article className="metric-group" key={group.id}>
-                <span className="metric-group-number">0{index + 1}</span>
-                <h3>{group.name}</h3>
-                <p>{group.summary}</p>
-                <code>{group.metrics}</code>
-              </article>
-            ))}
-          </div>
-          <Link
-            className="text-link"
-            to={localizedPath("/measurements/")}
-          >
-            {copy.common.learnMeasurements}
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
-      </section>
-
-      <section className="section-shell section-block privacy-feature">
-        <div className="privacy-copy">
-          <p className="eyebrow">{copy.home.privacyEyebrow}</p>
-          <h2>{copy.home.privacyTitle}</h2>
-          <p>{copy.home.privacyLead}</p>
-          <Link className="text-link" to={localizedPath("/privacy/")}>
-            {copy.nav.privacy}
-            <ArrowRight size={16} aria-hidden="true" />
-          </Link>
-        </div>
-        <div className="privacy-grid">
-          {copy.home.privacyPoints.map((point, index) => {
-            const Icon = privacyIcons[index];
+        <div className="workflow-stack-v2">
+          {content.workflows.map((workflow, index) => {
+            const Icon = workflowIcons[workflow.id];
             return (
-              <article key={point.title}>
-                <Icon size={20} aria-hidden="true" />
-                <h3>{point.title}</h3>
-                <p>{point.detail}</p>
+              <article
+                className={`workflow-row-v2 workflow-${workflow.id} ${
+                  index % 2 ? "workflow-row-v2-reverse" : ""
+                }`}
+                key={workflow.id}
+              >
+                <div className="workflow-copy-v2">
+                  <span className="workflow-icon-v2" aria-hidden="true">
+                    <Icon size={22} />
+                  </span>
+                  <h3>{workflow.title}</h3>
+                  <p>{workflow.description}</p>
+                  <ul className="evidence-list">
+                    {workflow.evidence.map((evidence) => (
+                      <li key={evidence}>
+                        <Check size={14} aria-hidden="true" />
+                        {evidence}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="workflow-visual-v2">
+                  <DeviceShot src={workflow.image} alt={workflow.alt} priority />
+                </div>
               </article>
             );
           })}
         </div>
       </section>
 
-      <section className="themes-section section-block">
+      <section className="instrument-lab section-block">
+        <div className="section-shell instrument-lab-grid">
+          <div className="instrument-lab-visual">
+            <div className="instrument-trace" aria-hidden="true">
+              <span />
+              <span />
+              <span />
+            </div>
+            <DeviceShot
+              src="/images/v2/instrument-studio.jpg"
+              alt={content.instrumentImageAlt}
+              priority
+            />
+          </div>
+          <div className="instrument-lab-copy">
+            <h2>{content.instrumentsTitle}</h2>
+            <p>{content.instrumentsLead}</p>
+            <ul className="instrument-points">
+              {content.instrumentPoints.map((point, index) => (
+                <li key={point}>
+                  <span>0{index + 1}</span>
+                  <strong>{point}</strong>
+                </li>
+              ))}
+            </ul>
+            <Link className="text-link" to={localizedPath("/measurements/")}>
+              {content.guide}
+              <ArrowRight size={16} aria-hidden="true" />
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      <section className="appearance-section section-block">
         <div className="section-shell">
-          <header className="section-heading">
-            <p className="eyebrow">{copy.home.themesEyebrow}</p>
-            <h2>{copy.home.themesTitle}</h2>
-            <p>{copy.home.themesLead}</p>
+          <header className="section-heading-v2">
+            <h2>{content.themesTitle}</h2>
           </header>
-          <div className="theme-stage">
-            {themeImages.map((image, index) => (
-              <figure key={image} className={`theme-card theme-${index}`}>
+          <div className="appearance-grid">
+            {themeImages.map((theme) => (
+              <figure key={theme.image}>
                 <img
-                  src={image}
-                  alt={`${copy.home.themeNames[index]} · SignalMetric ${copy.common.appearance}`}
-                  loading="lazy"
+                  src={theme.image}
+                  alt={`${theme.name} · SignalMetric ${copy.common.appearance}`}
+                  loading="eager"
                   width={738}
-                  height={1600}
+                  height={1604}
                 />
-                <figcaption>{copy.home.themeNames[index]}</figcaption>
+                <figcaption>
+                  <span>{theme.name}</span>
+                  <Gauge size={15} aria-hidden="true" />
+                </figcaption>
               </figure>
             ))}
           </div>
-          <div className="theme-name-rail">
-            {copy.home.themeNames.map((name) => (
-              <span key={name}>{name}</span>
-            ))}
-          </div>
+        </div>
+      </section>
+
+      <section className="section-shell privacy-feature-v2 section-block">
+        <div className="privacy-copy">
+          <h2>{content.privacyTitle}</h2>
+          <p>{content.privacyLead}</p>
+          <Link className="text-link" to={localizedPath("/privacy/")}>
+            {copy.nav.privacy}
+            <ArrowRight size={16} aria-hidden="true" />
+          </Link>
+        </div>
+        <div className="privacy-evidence-v2">
+          <article>
+            <Mic2 size={20} aria-hidden="true" />
+            <strong>{copy.home.privacyPoints[0].title}</strong>
+            <p>{copy.home.privacyPoints[0].detail}</p>
+          </article>
+          <article>
+            <Headphones size={20} aria-hidden="true" />
+            <strong>{copy.home.privacyPoints[2].title}</strong>
+            <p>{copy.home.privacyPoints[2].detail}</p>
+          </article>
+          <article>
+            <ShieldCheck size={20} aria-hidden="true" />
+            <strong>{copy.home.privacyPoints[3].title}</strong>
+            <p>{copy.home.privacyPoints[3].detail}</p>
+          </article>
         </div>
       </section>
 
@@ -235,9 +258,7 @@ export default function HomePage() {
       <section className="portfolio-bridge">
         <div className="section-shell portfolio-bridge-grid">
           <div className="portfolio-bridge-copy">
-            <p className="eyebrow">{copy.home.portfolioEyebrow}</p>
             <h2>{copy.home.portfolioTitle}</h2>
-            <p>{copy.home.portfolioLead}</p>
           </div>
           <div className="portfolio-bridge-action">
             <div className="portfolio-product-list" aria-hidden="true">
@@ -257,19 +278,30 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-shell final-cta">
-        <span className="cta-signal" aria-hidden="true" />
-        <p className="eyebrow">SIGNAL / METRIC</p>
-        <h2>{copy.home.ctaTitle}</h2>
-        <p>{copy.home.ctaLead}</p>
-        <div className="hero-actions">
-          <a className="button button-primary" href={appStoreUrl}>
-            {copy.common.appStore}
-            <ArrowRight size={17} aria-hidden="true" />
+      <section className="section-shell availability-cta">
+        <div>
+          <h2>{content.availabilityTitle}</h2>
+        </div>
+        <div className="availability-actions">
+          <a className="platform-button platform-button-active" href={appStoreUrl}>
+            <span className="platform-button-icon">
+              <Download size={19} aria-hidden="true" />
+            </span>
+            <span>
+              <small>{content.appStoreStatus}</small>
+              <strong>{content.appStore}</strong>
+            </span>
+            <ArrowUpRight size={16} aria-hidden="true" />
           </a>
-          <Link className="button button-secondary" to={localizedPath("/support/")}>
-            {copy.nav.support}
-          </Link>
+          <span className="platform-button platform-button-pending" aria-disabled="true">
+            <span className="platform-button-icon">
+              <Smartphone size={19} aria-hidden="true" />
+            </span>
+            <span>
+              <small>{content.androidStatus}</small>
+              <strong>{content.android}</strong>
+            </span>
+          </span>
         </div>
       </section>
     </>
