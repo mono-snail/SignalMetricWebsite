@@ -44,6 +44,9 @@ export default function HomePage() {
     { image: "/images/v2/instrument-pulse.jpg", name: copy.home.themeNames[4] },
     { image: "/images/v2/instrument-mono.jpg", name: copy.home.themeNames[5] },
   ];
+  const orderedWorkflows = (["noise", "prepare", "publish"] as const).map(
+    (id) => content.workflows.find((workflow) => workflow.id === id)!,
+  );
 
   return (
     <>
@@ -128,46 +131,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-shell workflow-section section-block" id="instruments">
-        <header className="section-heading-v2">
-          <h2>{content.workflowsTitle}</h2>
-        </header>
-
-        <div className="workflow-stack-v2">
-          {content.workflows.map((workflow, index) => {
-            const Icon = workflowIcons[workflow.id];
-            return (
-              <article
-                className={`workflow-row-v2 workflow-${workflow.id} ${
-                  index % 2 ? "workflow-row-v2-reverse" : ""
-                }`}
-                key={workflow.id}
-              >
-                <div className="workflow-copy-v2">
-                  <span className="workflow-icon-v2" aria-hidden="true">
-                    <Icon size={22} />
-                  </span>
-                  <h3>{workflow.title}</h3>
-                  <p>{workflow.description}</p>
-                  <ul className="evidence-list">
-                    {workflow.evidence.map((evidence) => (
-                      <li key={evidence}>
-                        <Check size={14} aria-hidden="true" />
-                        {evidence}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="workflow-visual-v2">
-                  <DeviceShot src={workflow.image} alt={workflow.alt} priority />
-                </div>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="instrument-lab section-block">
+      <section className="instrument-lab section-block" id="instruments">
         <div className="section-shell instrument-lab-grid">
           <div className="instrument-lab-visual">
             <div className="instrument-trace" aria-hidden="true">
@@ -197,6 +161,45 @@ export default function HomePage() {
               <ArrowRight size={16} aria-hidden="true" />
             </Link>
           </div>
+        </div>
+      </section>
+
+      <section className="section-shell workflow-section section-block">
+        <header className="section-heading-v2">
+          <h2>{content.workflowsTitle}</h2>
+        </header>
+
+        <div className="workflow-stack-v2">
+          {orderedWorkflows.map((workflow, index) => {
+            const Icon = workflowIcons[workflow.id];
+            return (
+              <article
+                className={`workflow-row-v2 workflow-${workflow.id} ${
+                  index % 2 ? "workflow-row-v2-reverse" : ""
+                }`}
+                key={workflow.id}
+              >
+                <div className="workflow-copy-v2">
+                  <span className="workflow-icon-v2" aria-hidden="true">
+                    <Icon size={22} />
+                  </span>
+                  <h3>{workflow.title}</h3>
+                  <p>{workflow.description}</p>
+                  <ul className="evidence-list">
+                    {workflow.evidence.map((evidence) => (
+                      <li key={evidence}>
+                        <Check size={14} aria-hidden="true" />
+                        {evidence}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="workflow-visual-v2">
+                  <DeviceShot src={workflow.image} alt={workflow.alt} priority />
+                </div>
+              </article>
+            );
+          })}
         </div>
       </section>
 

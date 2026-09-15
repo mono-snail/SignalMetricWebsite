@@ -2999,10 +2999,6 @@ h3 {
     gap: 3rem;
   }
 
-  .instrument-lab-copy {
-    grid-row: 1;
-  }
-
   .instrument-lab-visual {
     min-height: 44rem;
   }

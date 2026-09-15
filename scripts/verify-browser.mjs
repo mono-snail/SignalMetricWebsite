@@ -55,6 +55,13 @@ try {
           };
         })(),
         articles: document.querySelectorAll(".reading-links a").length,
+        sectionOrder: [...document.querySelectorAll("main > section")].map(
+          (section) => section.classList[0],
+        ),
+        workflowOrder: [...document.querySelectorAll(".workflow-row-v2")].map(
+          (workflow) => [...workflow.classList].find((name) => name.startsWith("workflow-") && name !== "workflow-row-v2"),
+        ),
+        instrumentsTarget: document.querySelector("#instruments")?.classList.contains("instrument-lab"),
       }));
       assert.equal(state.lang, languageTag(locale));
       assert.equal(state.heading, "SignalMetric");
@@ -67,6 +74,18 @@ try {
       assert.ok(state.relay?.text.includes("www.monoware.app"));
       assert.ok(state.relay?.inFirstViewport);
       assert.equal(state.articles, 3);
+      assert.deepEqual(state.sectionOrder.slice(0, 4), [
+        "hero-v2",
+        "proof-rail-v2",
+        "instrument-lab",
+        "section-shell",
+      ]);
+      assert.deepEqual(state.workflowOrder, [
+        "workflow-noise",
+        "workflow-prepare",
+        "workflow-publish",
+      ]);
+      assert.equal(state.instrumentsTarget, true);
       await page.screenshot({ path: `${output}/${viewport.width}-${locale}.png` });
     }
     await page.goto(`${base}/`);
